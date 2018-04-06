@@ -26,7 +26,7 @@ mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, "connection failed"));
 db.once('open', function () {
-    console.log("Database connected successfully!");
+    console.log("Database connected successfully");
 });
 // mongoose.set('debug', true);
 
