@@ -1,0 +1,20 @@
+> User Schema:
+id:
+fullName:
+username:
+email:
+mobile_primary:
+mobile_secondary:
+password:
+is_email_verified:
+is_login:
+token:
+is_admin:
+
+>Address Schema
+address:
+landmark:
+city:
+state:
+zip:
+country:
