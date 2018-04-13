@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 
 
 // mongoose.connect("mongodb://172.10.1.7:27017/mydaily", {user : 'mydaily', pass : 'mydaily7890'});
-mongoose.connect("mongodb://localhost:27017/mydaily");
+mongoose.connect("mongodb://localhost:27017/kabi");
 //mongoose.connect("mongodb://52.39.212.226:27017/mydaily", {user : "mydaily", pass : "My61936DaU432t"});
 // mongoose.connect("mongodb://52.34.207.5:27017/mydaily", {
 //     user: "mydaily",
