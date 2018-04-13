@@ -13,9 +13,9 @@ var UserSchema = new mongoose.Schema({
     },
     user_name: {
         type: String,
-        required: [true, 'Last name is required'],
+        required: [true, 'Username is required'],
         unique: [true, 'Username already exists'],
-        maxlength: [50, 'Last name length should be less than or equal to 50 character']
+        maxlength: [50, 'Username length should be less than or equal to 50 character']
     },
     email: {
         type: String,
@@ -34,11 +34,11 @@ var UserSchema = new mongoose.Schema({
     mobile_primary:{
         type: String,
         required: [true, 'Primary mobile no. is required'],
-        maxlength: [12, 'mobile no. length should be less than or equal to 12 character']
+        maxlength: [12, 'Mobile no. length should be less than or equal to 12 character']
     },
     mobile_secondry:{
         type: String,
-        maxlength: [12, 'mobile no. length should be less than or equal to 12 character']
+        maxlength: [12, 'Mobile no. length should be less than or equal to 12 character']
     },
     role: {
         type: mongoose.Schema.Types.ObjectId,
