@@ -74,7 +74,7 @@ definitions:
   registerUser:
     type: object
     properties:
-      name:
+      fullname:
         type: string
         description: task object name
       email:
@@ -82,11 +82,23 @@ definitions:
         description: task description
       password:
         type: string
-        description: task description        
+        description: task description 
+      mobile_primary:
+        type: string
+        description: task description 
+      user_name:
+        type: string
+        description: task description 
+      role_id:
+        type: string
+        description: task description         
     required:
-      - name
+      - fullname
       - email
       - password
+      - mobile_primary
+      - user_name
+      - role_id
       
   loginUser:
     type: object
