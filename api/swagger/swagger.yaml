@@ -18,40 +18,104 @@ consumes:
 produces:
   - application/json
 paths:
-  /hello:
-    # binds a127 app logic to a route
-    x-swagger-router-controller: hello_world
-    get:
-      description: Returns 'Hello' to the caller
-      # used as the method name of the controller
-      operationId: hello
+  /register:
+    # our controller name
+    x-swagger-router-controller: user_ctrl
+    post:
+      description: add new user
+      # movie info to be stored
+      operationId: registerUser
+      tags: ['User Module']
       parameters:
-        - name: name
-          in: query
-          description: The name of the person to whom to say hello
-          required: false
-          type: string
+        - name: body
+          description: user properties
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/registerUser"
       responses:
         "200":
           description: Success
           schema:
-            # a pointer to a definition
-            $ref: "#/definitions/HelloWorldResponse"
-        # responses may fall through to errors
+            $ref: "#/definitions/GeneralResponse"
         default:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+  /login:
+    # our controller name
+    x-swagger-router-controller: user_ctrl
+    post:
+      description: add new user
+      # movie info to be stored
+      operationId: loginUser
+      tags: ['User Module']
+      parameters:
+        - name: body
+          description: user properties
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/loginUser"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"            
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
 definitions:
-  HelloWorldResponse:
-    required:
-      - message
+
+  registerUser:
+    type: object
     properties:
+      name:
+        type: string
+        description: task object name
+      email:
+        type: string
+        description: task description
+      password:
+        type: string
+        description: task description        
+    required:
+      - name
+      - email
+      - password
+      
+  loginUser:
+    type: object
+    properties:
+      email:
+        type: string
+        description: task description
+      password:
+        type: string
+        description: task description        
+    required:
+      - email
+      - password      
+
+  GeneralResponse:
+    type: object
+    properties:
+      code:
+        type: number
+        description: returns 200 if successful
       message:
         type: string
+        description: a short comment 
+      data:
+        type: object
+    required:
+      - code
+      - message
+ 
   ErrorResponse:
     required:
       - message
