@@ -19,8 +19,9 @@ var ItemSchema = new mongoose.Schema({
         required: [true, 'Description is required']
     },
     category_id: {
-        type: String,
-        require: [true, 'Password is required']
+        require: [true, 'Category is required'],
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category'
     }
 }, {
     timestamps: true
