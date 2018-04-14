@@ -2,6 +2,9 @@
 
 var SwaggerExpress = require('swagger-express-mw');
 var app = require('express')();
+var express = require('express');
+var path = require('path')
+var bodyParser = require('body-parser');
 
 module.exports = app; // for testing
 
@@ -12,6 +15,13 @@ require('./config/db');
 var config = {
   appRoot: __dirname // required config
 };
+
+app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public/front_end')));
 
 SwaggerExpress.create(config, function(err, swaggerExpress) {
   if (err) { throw err; }

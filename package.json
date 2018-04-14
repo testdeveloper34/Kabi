@@ -8,9 +8,11 @@
   "license": "",
   "main": "app.js",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.12.3",
     "jsonwebtoken": "^8.2.1",
     "mongoose": "^5.0.13",
+    "path": "^0.12.7",
     "swagger-express-mw": "^0.1.0",
     "swagger-ui": "^3.13.2"
   },
