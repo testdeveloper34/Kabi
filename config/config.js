@@ -15,11 +15,13 @@ module.exports =  {
         RESPONSE_CODES:{
             SUCCESS:200,
             BAD_REQUEST:400,
-            ERROR:500
+            ERROR:500,
+            WRONG_CREDENTIALS:420
         },
         RESPONSE_MESSAGES:{
             SUCCESS:'successfull!',
             BAD_REQUEST: 'BAD REQUEST!',
-            ERROR: 'ERROR OCCURED'
+            ERROR: 'ERROR OCCURED',
+            WRONG_CREDENTIALS: 'Incorrect Email or pasword'
         }
 };

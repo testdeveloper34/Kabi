@@ -18,7 +18,7 @@ consumes:
 produces:
   - application/json
 paths:
-  /register:
+  /api/register:
     # our controller name
     x-swagger-router-controller: user_ctrl
     post:
@@ -42,7 +42,8 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-  /login:
+            
+  /api/login:
     # our controller name
     x-swagger-router-controller: user_ctrl
     post:
@@ -65,11 +66,83 @@ paths:
         default:
           description: Error
           schema:
+            $ref: "#/definitions/ErrorResponse" 
+            
+  /api/adminlogin:
+    # our controller name
+    x-swagger-router-controller: user_ctrl
+    post:
+      description: login admin
+      # function to be called
+      operationId: loginAdmin
+      tags: ['User Module']
+      parameters:
+        - name: body
+          description: user properties
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/loginUser"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+            
+  /api/addItem:
+    # our controller name
+    x-swagger-router-controller: item_ctrl
+    post:
+      description: Add new item by admin
+      # function to be called
+      operationId: addItem
+      tags: ['Items Module']
+      parameters:
+        - name: body
+          description: item properties
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/newItem"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
             $ref: "#/definitions/ErrorResponse"            
+            
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
 definitions:
+
+  newItem:
+    type: object
+    properties:
+      item_name:
+        type: string
+        description: Item name
+      item_price:
+        type: number
+        description: Item price
+      item_description:
+        type: string
+        description: Item description 
+      category_id:
+        type: string
+        description: Category Id        
+    required:
+      - item_name
+      - item_price
+      - item_description
+      - category_id
 
   registerUser:
     type: object
@@ -121,9 +194,7 @@ definitions:
         description: returns 200 if successful
       message:
         type: string
-        description: a short comment 
-      data:
-        type: object
+        description: a short comment
     required:
       - code
       - message

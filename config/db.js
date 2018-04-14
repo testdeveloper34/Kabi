@@ -29,8 +29,6 @@ db.once('open', function () {
     console.log("Database connected successfully!");
 });
 
-
-
-// mongoose.set('debug', true);
+mongoose.set('debug', true);
 
 /* end DB */

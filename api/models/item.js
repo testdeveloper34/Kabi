@@ -11,7 +11,7 @@ var ItemSchema = new mongoose.Schema({
         required: [true, 'Item name is required']
     },
     item_price: {
-        type: number,
+        type: Number,
         required: [true, 'Price is required']
     },
     item_description: {
@@ -28,8 +28,8 @@ var ItemSchema = new mongoose.Schema({
         default: false
     }
 }, {
-    timestamps: true
-});
+        timestamps: true
+    });
 
 var Item = mongoose.model('Item', ItemSchema);
 module.exports = Item;
