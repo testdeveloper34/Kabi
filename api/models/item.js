@@ -22,6 +22,10 @@ var ItemSchema = new mongoose.Schema({
         require: [true, 'Category is required'],
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category'
+    },
+    deleted: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true

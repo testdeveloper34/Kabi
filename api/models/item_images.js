@@ -14,6 +14,10 @@ var ItemImagesSchema = new mongoose.Schema({
         require: [true, 'Item is required'],
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Item'
+    },
+    deleted: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true
