@@ -14,7 +14,7 @@ angular.module('kabi', ['ui.router','LocalStorageModule']);
                 controller:'homeCtrl'
             })
          .state('Dashboard.Test', {
-                url: '/test',
+                url: '/',
                 templateUrl:  '/spa/modules/home/test.html',
                 // controller:'homeCtrl'
             })
