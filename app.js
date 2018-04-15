@@ -5,6 +5,7 @@ var app = require('express')();
 var express = require('express');
 var path = require('path')
 var bodyParser = require('body-parser');
+var appConfig = require('./config/config');
 
 module.exports = app; // for testing
 
@@ -26,6 +27,10 @@ app.use(express.static(path.join(__dirname, 'public/front_end')));
 SwaggerExpress.create(config, function(err, swaggerExpress) {
   if (err) { throw err; }
 
+    app.use(function(req, res, next){
+        req['config'] = appConfig;
+        next();
+    })
     // All api requests
     app.use(function(req, res, next) {
         // CORS headers

@@ -8,7 +8,7 @@ var UserSchema = new mongoose.Schema({
 
     full_name: {
         type: String,
-        required: [true, 'First name is required'],
+        required: [true, 'Name is required'],
         maxlength: [50, 'First name length should be less than or equal to 50 character']
     },
     user_name: {
@@ -40,9 +40,10 @@ var UserSchema = new mongoose.Schema({
         type: String,
         maxlength: [12, 'Mobile no. length should be less than or equal to 12 character']
     },
-    role: {
+    role_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Role'
+        ref: 'Role',
+        required: [true, 'Role is required'],
     },
     profile_image: {
         type: String
