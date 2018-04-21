@@ -33,7 +33,25 @@ angular.module('kabi', ['ui.router','LocalStorageModule']);
                     //}
                 },
             })
-       
-
-         $locationProvider.html5Mode(true).hashPrefix('');
+            .state('Admin', {
+                abstract: true,
+                views: {
+                    '@': {
+                        templateUrl:  '/spa/modules/Layout/adminlayout.html',
+                    },
+                    'body@Admin': {
+                        templateUrl:  '/spa/modules/Layout/content.html'
+                    }
+                    //,
+                    //'footer@Dashboard': {
+                    //    templateUrl: baseUrl + 'scripts/spa/shedEstimator/shed/shed.html',
+                    //}
+                },
+            })
+            .state('Admin.AddCategory', {
+                url: '/admin/addcategory',
+                templateUrl:  '/spa/modules/admin/addCategory.html',
+                // controller:'homeCtrl'
+            })
+         //$locationProvider.html5Mode(true).hashPrefix('');
     });
