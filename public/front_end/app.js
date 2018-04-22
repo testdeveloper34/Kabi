@@ -10,7 +10,7 @@ angular.module('kabi', ['ui.router','LocalStorageModule']);
         $stateProvider
             .state('Dashboard.Home', {
                 url: '/',
-                templateUrl:  '/spa/modules/home/home.html',
+                templateUrl:  '/spa/modules/home/views/home.html',
                 controller:'homeCtrl'
             })
          .state('Dashboard.Test', {
@@ -50,8 +50,8 @@ angular.module('kabi', ['ui.router','LocalStorageModule']);
             })
             .state('Admin.AddCategory', {
                 url: '/admin/addcategory',
-                templateUrl:  '/spa/modules/admin/addCategory.html',
-                // controller:'homeCtrl'
+                templateUrl:  '/spa/modules/admin/Category/views/addCategory.html',
+                controller:'categoryCtrl'
             })
          //$locationProvider.html5Mode(true).hashPrefix('');
     });

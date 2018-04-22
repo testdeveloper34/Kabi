@@ -1,0 +1,68 @@
+<section class="main-content">				
+    <div class="row">
+        <div class="span8">					
+            <h4 class="title"><span class="text"><strong>Category List</strong></span></h4>
+            <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Category Name</th>
+                        <th>Category Type</th>
+                        <th>Sub-Category</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="category in categoryList">
+                        <td ng-bind="category.category_name"></td>
+                        <td ng-bind="category.category_types"></td>
+                        <td>john@example.com</td>
+                        <td> <span class="fa fa-pen"></span> </td>
+                        
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+        </div>
+        <div class="span4">					
+            <h4 class="title"><span class="text"><strong>Add Category</strong></span></h4>
+            <form action="#" method="post" class="form-stacked">
+                <fieldset>
+                    <div class="control-group">
+                        <label class="control-label">Category Name</label>
+                        <div class="controls">
+                            <input type="text" placeholder="Enter new category name" class="input-xlarge" ng-model="category.category_name">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Category Type</label>
+                        <div class="controls">
+                            <select id="categoryType" placeholder="Select Category Type" ng-init="category.category_types='Men'" class="input-xlarge" ng-model="category.category_types">
+                            <option value="Men">Men</option>
+                            <option value="Women">Women</option>
+                            <option value="Kids">Kids</option>
+                        </select>
+                            <!-- <input type="password" placeholder="Enter your email" class="input-xlarge"> -->
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        
+                    <label class="control-label">Sub-Category <span class="fa fa-plus add-icon" ng-click="addnew()"></span> </label>
+                                                                                        
+                        <div class="control-group">
+                        <div class="controls" ng-repeat="subcategory in category.subcategory track by $index">
+                                <input type="text" ng-model="subcategory.SubcategoryName" placeholder="Enter any Sub-Category" class="input-xlarge">
+                            <span class="fa fa-minus" ng-hide="$first" ng-click="remove($index)"></span>
+                            </div>
+                   </div>                        
+                        
+                    </div>							                            
+                    <!-- <div class="control-group">
+                        <p>Now that we know who you are. I'm not a mistake! In a comic, you know how you can tell who the arch-villain's going to be?</p>
+                    </div> -->
+                    <hr>
+                    <div class="actions"><input tabindex="9" class="btn btn-inverse large" type="button" value="Save" ng-click="save()"></div>
+                </fieldset>
+            </form>					
+        </div>				
+    </div>
+</section>
