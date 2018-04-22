@@ -8,6 +8,7 @@
   "license": "",
   "main": "app.js",
   "dependencies": {
+    "angular-datatables": "^0.6.2",
     "body-parser": "^1.18.2",
     "express": "^4.12.3",
     "jsonwebtoken": "^8.2.1",
