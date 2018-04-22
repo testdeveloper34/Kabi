@@ -2,11 +2,30 @@
 
 angular.module('kabi', ['ui.router','LocalStorageModule','datatables']);
 
-    angular.module("kabi").config(function ($stateProvider, $urlRouterProvider, $locationProvider, $sceProvider) {
+    angular.module("kabi").config(function ($stateProvider, $urlRouterProvider, $locationProvider, $sceProvider,$httpProvider) {
         // $sceProvider.enabled(false);
+        // $httpProvider.interceptors.push(function ($q, $location, $localStorage) {
+        //     return {
+        //         request: function (config) {
+        //             config.headers = config.headers || {};
+        //             // config.headers['Authorization'] = 'Basic d2VudHdvcnRobWFuOkNoYW5nZV9tZQ==';
+        //             config.headers['authorization'] = 'admin_bearer ' + $localStorage.token;
+        //             config.headers['client-type'] = 'browser'; // this is used to detect the request is from the browser
+        //             return config;
+        //         },
+        //         response: function (response) {
+        //             if (response.data.code == 401) {
+        //                 delete $localStorage.token;
+        //                 // handle the case where the user is not authenticated
+        //                 $location.path('/login');
+        //             }
+        //             return response || $q.when(response);
+        //         }
+        //     };
+        // });
         //$locationProvider.hashPrefix('');
-        $urlRouterProvider.when('', '/');
-        $urlRouterProvider.otherwise('/');
+        $urlRouterProvider.when('', '/test');
+        $urlRouterProvider.otherwise('/test');
         $stateProvider
             .state('Dashboard.Home', {
                 url: '/',
@@ -15,7 +34,7 @@ angular.module('kabi', ['ui.router','LocalStorageModule','datatables']);
             })
          .state('Dashboard.Test', {
                 url: '/',
-                templateUrl:  '/spa/modules/home/test.html',
+                templateUrl:  '/spa/modules/product/addupdateCategory.html',
                 // controller:'homeCtrl'
             })
             .state('Dashboard', {

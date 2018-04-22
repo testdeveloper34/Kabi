@@ -4422,3 +4422,9 @@ ul {
 }
 .social {font-size: 2.3em;}
 
+.inputShift{
+float: right;
+}
+.btn_float{
+	margin-top:100px;
+}
