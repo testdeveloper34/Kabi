@@ -16,10 +16,14 @@ function addItem(req, res) {
     } else {
         var newItem = new itemModel();
 
-        newItem.item_name = req.body.item_name.toLowerCase();
-        newItem.item_price = req.body.item_price;
-        newItem.item_description = req.body.item_description.toLowerCase();
-        newItem.category_id = req.body.category_id;
+        if(req.body._id){
+            newItem._id = req.body._id;
+        }
+
+        newItem.item_name = req.body.item_name ? req.body.item_name.toLowerCase() : null;
+        newItem.item_price = req.body.item_price ? req.body.item_price : null;
+        newItem.item_description = req.body.item_description ? req.body.item_description.toLowerCase() : null;
+        newItem.category_id = req.body.category_id ? req.body.category_id : null;
 
         newItem.save((err, item) => {
             if (err) {

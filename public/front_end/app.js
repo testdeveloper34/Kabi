@@ -28,8 +28,8 @@ angular.module('kabi', ['ui.router','LocalStorageModule','ngStorage']);
         $urlRouterProvider.otherwise('/test');
         $stateProvider
             .state('Dashboard.Home', {
-                url: '/test',
-                templateUrl:  '/spa/modules/home/home.html',
+                url: '/',
+                templateUrl:  '/spa/modules/home/views/home.html',
                 controller:'homeCtrl'
             })
          .state('Dashboard.Test', {
@@ -52,7 +52,25 @@ angular.module('kabi', ['ui.router','LocalStorageModule','ngStorage']);
                     //}
                 },
             })
-       
-
-         $locationProvider.html5Mode(true).hashPrefix('');
+            .state('Admin', {
+                abstract: true,
+                views: {
+                    '@': {
+                        templateUrl:  '/spa/modules/Layout/adminlayout.html',
+                    },
+                    'body@Admin': {
+                        templateUrl:  '/spa/modules/Layout/content.html'
+                    }
+                    //,
+                    //'footer@Dashboard': {
+                    //    templateUrl: baseUrl + 'scripts/spa/shedEstimator/shed/shed.html',
+                    //}
+                },
+            })
+            .state('Admin.AddCategory', {
+                url: '/admin/addcategory',
+                templateUrl:  '/spa/modules/admin/Category/views/addCategory.html',
+                controller:'categoryCtrl'
+            })
+         //$locationProvider.html5Mode(true).hashPrefix('');
     });

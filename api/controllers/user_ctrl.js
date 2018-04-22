@@ -11,14 +11,14 @@ module.exports = {
 };
 
 function registerUser(req, res) {
-  if (!req.body.fullname || !req.body.user_name || !req.body.email || !req.body.password || !req.body.mobile_primary || !req.body.role_id) {
+  if (!req.body.full_name || !req.body.user_name || !req.body.email || !req.body.password || !req.body.mobile_primary || !req.body.role_id) {
     res.json({
       code: req.config.RESPONSE_CODES.BAD_REQUEST,
       message: req.config.RESPONSE_MESSAGES.BAD_REQUEST
     })
   } else {
     var user = new userModel();
-    user.full_name = req.body.fullname.toLowerCase();
+    user.full_name = req.body.full_name.toLowerCase();
     user.user_name = req.body.user_name.toLowerCase();
     user.email = req.body.email.toLowerCase();
     user.password = req.body.password;

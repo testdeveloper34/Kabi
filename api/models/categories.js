@@ -9,9 +9,6 @@ var CategorySchema = new mongoose.Schema({
     category_name: {
         type: String,
     },
-    sub_category_name: {
-        type: String,
-    },
     deleted: {
         type: Boolean,
         default: false
@@ -20,5 +17,5 @@ var CategorySchema = new mongoose.Schema({
     timestamps: true
 });
 
-var Category = mongoose.model('Category', CategorySchema);
+var Category = mongoose.model('Categories', CategorySchema);
 module.exports = Category;
