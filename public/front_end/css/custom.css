@@ -140,3 +140,9 @@ footer .all_rights_res{color: #919597}
 	.btn-grey{display: none;}
 }
 
+.inputShift{
+float: right;
+}
+.btn_float{
+	margin-top:100px;
+}
