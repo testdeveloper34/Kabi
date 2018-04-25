@@ -12,11 +12,11 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr ng-repeat="category in categoryList">
+                      <tr ng-repeat="category in categoryList track by $index">
                         <td ng-bind="category.category_name"></td>
-                        <td ng-bind="category.category_types"></td>
+                        <td ng-bind="category.category_type[0].category_type_name"></td>
                         <td>john@example.com</td>
-                        <td> <span class="fa fa-pen"></span> </td>
+                        <td> <span class="fa fa-edit" ng-click="getCategory(category._id)"></span> </td>
                         
                       </tr>
                       
@@ -36,10 +36,11 @@
                     <div class="control-group">
                         <label class="control-label">Category Type</label>
                         <div class="controls">
-                            <select id="categoryType" placeholder="Select Category Type" ng-init="category.category_types='Men'" class="input-xlarge" ng-model="category.category_types">
-                            <option value="Men">Men</option>
-                            <option value="Women">Women</option>
-                            <option value="Kids">Kids</option>
+                            <select id="categoryType" placeholder="Select Category Type"  class="input-xlarge" ng-model="category.category_type">
+                                <option value="" selected="selected">Select</option>
+                                <option ng-repeat="opt in allTypes" ng-value="opt._id">{{opt.category_type_name}}</option>
+                                <!--<option ng-value="-1" value="-1">Edit</option>-->
+                            </select>
                         </select>
                             <!-- <input type="password" placeholder="Enter your email" class="input-xlarge"> -->
                         </div>
@@ -49,8 +50,8 @@
                     <label class="control-label">Sub-Category <span class="fa fa-plus add-icon" ng-click="addnew()"></span> </label>
                                                                                         
                         <div class="control-group">
-                        <div class="controls" ng-repeat="subcategory in category.subcategory track by $index">
-                                <input type="text" ng-model="subcategory.SubcategoryName" placeholder="Enter any Sub-Category" class="input-xlarge">
+                        <div class="controls" ng-repeat="subcategory in category.sub_categories track by $index">
+                                <input type="text" ng-model="subcategory.subCategory_name" placeholder="Enter any Sub-Category" class="input-xlarge">
                             <span class="fa fa-minus" ng-hide="$first" ng-click="remove($index)"></span>
                             </div>
                    </div>                        

@@ -6,7 +6,7 @@
 
     function commonServices($http, $state, $q) {
             var commonService = {};
-
+            var baseUrl="http://192.168.43.215:5001";
             var getService = function (getUrl,ignoreLoader=false) {             
                 var deferred = $q.defer();
                 var requestOption = {
@@ -76,7 +76,7 @@
                 }
                 // if (ignoreLoader === true)
                 //     requestOptions.ignoreLoadingBar = true;
-                $http.post(postUrl, postInfo, requestOptions).then(function (response) {
+                $http.post(baseUrl+postUrl, postInfo, requestOptions).then(function (response) {
                     deferred.resolve(response);
                 }, function (err) {
 
