@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('kabi', ['ui.router','LocalStorageModule','ngStorage']);
+angular.module('kabi', ['ui.router','LocalStorageModule','datatables']);
 
     angular.module("kabi").config(function ($stateProvider, $urlRouterProvider, $locationProvider, $sceProvider,$httpProvider) {
         // $sceProvider.enabled(false);
@@ -69,6 +69,11 @@ angular.module('kabi', ['ui.router','LocalStorageModule','ngStorage']);
             })
             .state('Admin.AddCategory', {
                 url: '/admin/addcategory',
+                templateUrl:  '/spa/modules/admin/Category/views/addCategory.html',
+                controller:'categoryCtrl'
+            })
+            .state('test', {
+                url: '/test',
                 templateUrl:  '/spa/modules/admin/Category/views/addCategory.html',
                 controller:'categoryCtrl'
             })
