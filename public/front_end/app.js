@@ -24,8 +24,8 @@ angular.module('kabi', ['ui.router','LocalStorageModule','datatables']);
         //     };
         // });
         //$locationProvider.hashPrefix('');
-        $urlRouterProvider.when('', '/test');
-        $urlRouterProvider.otherwise('/test');
+        $urlRouterProvider.when('', '/');
+        $urlRouterProvider.otherwise('/');
         $stateProvider
             .state('Dashboard.Home', {
                 url: '/',
@@ -72,10 +72,10 @@ angular.module('kabi', ['ui.router','LocalStorageModule','datatables']);
                 templateUrl:  '/spa/modules/admin/Category/views/addCategory.html',
                 controller:'categoryCtrl'
             })
-            .state('test', {
-                url: '/test',
-                templateUrl:  '/spa/modules/admin/Category/views/addCategory.html',
-                controller:'categoryCtrl'
+            .state('Admin.ProductList', {
+                url: '/admin/productlist',
+                templateUrl:  '/spa/modules/admin/Products/views/productsList.html',
+                controller:'productCtrl'
             })
          //$locationProvider.html5Mode(true).hashPrefix('');
     });

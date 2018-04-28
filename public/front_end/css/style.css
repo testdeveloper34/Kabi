@@ -12,3 +12,9 @@
         font-size: 16px;
     }
 }
+.modal{
+        width: 630px;
+}
+.modal .modal-form{
+    padding-left: 20px;
+}
