@@ -1,11 +1,11 @@
 "use strict";   
-angular.module('kabi').controller('categoryCtrl', ['$scope','commonServices',function ($scope,commonServices) {
+angular.module('kabi').controller('categoryCtrl', ['$scope','commonServices','notificationService',function ($scope,commonServices,notificationService) {
 
     $scope.category={};
     $scope.category.sub_categories=[ {
         'subCategory_name':''
     }];
-
+$scope.IsAdd=true;
     $scope.categoryList = [];
 $scope.allTypes=[];
     $scope.$on('$viewContentLoaded', function (a) {
@@ -44,6 +44,7 @@ $scope.allTypes=[];
                 if(id!=null && id!="" && id!=undefined){
                     $scope.category=response.data.data[0];
                     $scope.category.category_type=response.data.data[0].category_type[0]._id;
+                    $scope.IsAdd=false;                                    
                 }
                 else{
                 $scope.categoryList=response.data.data;
@@ -61,28 +62,46 @@ $scope.allTypes=[];
             'subCategory_name':''
         });
     }
-    $scope.remove=function(index){
-        if (!index){
-            console.log("sdwds")
-        }    
-        else{
+    $scope.remove=function(index,id){
         swal({
-                   title: "Are you sure?",
-					text: "Are you sure you want to delete this Category ?",
-					type: "warning",
-					showCancelButton: true,
-					confirmButtonColor: "#DD6B55",
-					confirmButtonText: "Yes",
-					cancelButtonText: "No",
-					closeOnConfirm: true
+            title: "Are you sure?",
+             text: "Are you sure you want to delete this Sub Category ?",
+             type: "warning",
+             showCancelButton: true,
+             confirmButtonColor: "#DD6B55",
+             confirmButtonText: "Yes",
+             cancelButtonText: "No",
+             closeOnConfirm: true
 
-				}, function () {
-
-					
- $scope.category.sub_categories.splice(index,1);
-                });
-        }
-       
+         }, function () {
+            if(id!=null && id!=undefined && id!=""){
+                commonServices.deleteServiceparam("/api/deleteSubCategory/"+id).then(function(response){
+                    // console.log(response);
+                    if(response.data.code == 200){
+                       $scope.category.sub_categories.splice(index,1);
+                       notificationService.displaySuccess("Sub category deleted successfully");
+                        // call toaster 
+                        // call get list here
+                    }
+                    else{
+                        notificationService.displaySuccess(response.data.message);
+                    }
+                    
+                 });
+            }
+         else{
+            $scope.category.sub_categories.splice(index,1);
+            notificationService.displaySuccess("Sub category deleted successfully");                              
+            try{
+                $scope.$apply();           
+            }
+            catch(ex){
+            }
+         }
+         })
+        //alert(index+" "+id)
+      
+        
     }
     $scope.save=function()
     {
@@ -103,6 +122,35 @@ $scope.getCategory();
         });
         // call save method of the service to save category.
         
+    }
+    $scope.deleteCategory=function(id){
+        swal({
+            title: "Are you sure?",
+             text: "Are you sure you want to delete this Category ?",
+             type: "warning",
+             showCancelButton: true,
+             confirmButtonColor: "#DD6B55",
+             confirmButtonText: "Yes",
+             cancelButtonText: "No",
+             closeOnConfirm: true
+
+         }, function () {
+            commonServices.deleteServiceparam("/api/deleteCategory/"+id).then(function(response){
+                // console.log(response);
+                if(response.data.code == 200){
+                    notificationService.displaySuccess("category deleted successfully");
+                    $scope.category={};
+                    $scope.category.category_type="5adc4f7b76ce5f35d8df9687";
+                    $scope.getCategory();
+                    // call toaster 
+                    // call get list here
+                }
+                else{
+                    notificationService.displayError(response.data.message)
+                }
+                
+             });
+         });      
     }
     // alert('home');
     }]);

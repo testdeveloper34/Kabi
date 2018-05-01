@@ -16,7 +16,8 @@
                         <td ng-bind="category.category_name"></td>
                         <td ng-bind="category.category_type[0].category_type_name"></td>
                         <td>john@example.com</td>
-                        <td> <span class="fa fa-edit" ng-click="getCategory(category._id)"></span> </td>
+                        <td> <span class="fa fa-edit" ng-click="getCategory(category._id)"></span>|
+                             <span class="fa fa-trash" ng-click="deleteCategory(category._id)"></span> </td>
                         
                       </tr>
                       
@@ -52,7 +53,7 @@
                         <div class="control-group">
                         <div class="controls" ng-repeat="subcategory in category.sub_categories track by $index">
                                 <input type="text" ng-model="subcategory.subCategory_name" placeholder="Enter any Sub-Category" class="input-xlarge">
-                            <span class="fa fa-minus" ng-hide="$first" ng-click="remove($index)"></span>
+                            <span class="fa fa-minus" ng-hide="IsAdd && $first" ng-click="remove($index,subcategory._id)"></span>
                             </div>
                    </div>                        
                         
