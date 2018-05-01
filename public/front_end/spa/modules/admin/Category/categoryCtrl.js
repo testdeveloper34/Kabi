@@ -5,7 +5,7 @@ angular.module('kabi').controller('categoryCtrl', ['$scope','commonServices',fun
     $scope.category.sub_categories=[ {
         'subCategory_name':''
     }];
-
+$scope.IsAdd=true;
     $scope.categoryList = [];
 $scope.allTypes=[];
     $scope.$on('$viewContentLoaded', function (a) {
@@ -44,6 +44,7 @@ $scope.allTypes=[];
                 if(id!=null && id!="" && id!=undefined){
                     $scope.category=response.data.data[0];
                     $scope.category.category_type=response.data.data[0].category_type[0]._id;
+                    $scope.IsAdd=false;                                    
                 }
                 else{
                 $scope.categoryList=response.data.data;
@@ -61,8 +62,26 @@ $scope.allTypes=[];
             'subCategory_name':''
         });
     }
-    $scope.remove=function(index){
+    $scope.remove=function(index,id){
+        //alert(index+" "+id)
+        if(id!=null && id!=undefined && id!=""){
+            commonServices.deleteServiceparam("/api/deleteSubCategory/"+id).then(function(response){
+                // console.log(response);
+                if(response.data.code == 200){
+                   $scope.category.sub_categories.splice(index,1);
+                    // call toaster 
+                    // call get list here
+                }
+                else{
+                    alert(response.data.message);
+                }
+                
+             });
+        }
+     else{
         $scope.category.sub_categories.splice(index,1);
+     }
+        
     }
     $scope.save=function()
     {
@@ -82,6 +101,24 @@ $scope.getCategory();
             
         });
         // call save method of the service to save category.
+        
+    }
+    $scope.deleteCategory=function(id){
+        commonServices.deleteServiceparam("/api/deleteCategory/"+id).then(function(response){
+            // console.log(response);
+            if(response.data.code == 200){
+                alert("category delete successfully");
+                $scope.category={};
+                $scope.category.category_type="5adc4f7b76ce5f35d8df9687";
+                $scope.getCategory();
+                // call toaster 
+                // call get list here
+            }
+            else{
+                alert(response.data.message);
+            }
+            
+         });
         
     }
     // alert('home');

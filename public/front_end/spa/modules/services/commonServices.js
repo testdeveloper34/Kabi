@@ -6,7 +6,7 @@
 
     function commonServices($http, $state, $q) {
             var commonService = {};
-            var baseUrl="http://192.168.43.215:5001";
+            var baseUrl="http://192.168.43.65:5001";
             var getService = function (getUrl,ignoreLoader=false) {             
                 var deferred = $q.defer();
                 var requestOption = {
@@ -42,8 +42,8 @@
 
             var deleteServiceparam = function (getUrl, params) {
                 var deferred = $q.defer();
-                $http.delete(getUrl, {
-                    params: params,
+                $http.delete(baseUrl+getUrl, {
+                    //params: params,
                     headers: { 'Content-Type': 'application/json' }
                 }).then(function (response) {
                     deferred.resolve(response);
