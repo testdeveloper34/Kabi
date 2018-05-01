@@ -3,7 +3,7 @@
     <div class="row">
         <div class="span12">					
             <h4 class="title"><span class="text"><strong>Product List</strong></span></h4>
-            <table datatable="ng" class="table table-bordered">
+            <table datatable="ng" class="table table-bordered responsive ">
                     <thead>
                       <tr>
                         <th>Product Name</th>
@@ -30,11 +30,7 @@
         </div>
         				
     </div>
-</section>
-
-<!-- add product modal popup -->
-
-<div class="modal fade" id="modalAddProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalAddProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header text-center">
@@ -45,12 +41,12 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-           <form action="#" method="post" class="form-stacked">
+           <!-- <form action="#" method="post" class="form-stacked"> -->
             
             <div class="row modal-form">
                 
     
-                <div class="span3">
+                <div class="span5">
                     <fieldset>
                     <div class="form-group">
                         <label class="form-label"><strong>Product Name</strong></label>
@@ -78,17 +74,17 @@
                     <div class="form-group">
                         <label class="form-label"><strong>Quantity/Size</strong></label>
                         <div class="form">
-                            <div class="checkbox">
-                            <label><input type="checkbox" value="">Option 1 </label>
-                            <input type="text" placeholder="Quantity"/>
+                            <div class="checkbox quantity-check">
+                            <label><input type="checkbox" value="">Small </label>
+                            <input type="text" class="input-large" placeholder="Quantity"/>
                             </div>
-                            <div class="checkbox">
-                            <label><input type="checkbox" value="">Option 2</label>
-                            <input type="text" placeholder="Quantity"/>
+                            <div class="checkbox quantity-check">
+                            <label><input type="checkbox" value="">Medium</label>
+                            <input type="text" class="input-large" placeholder="Quantity"/>
                             </div>
-                            <div class="checkbox disabled">
-                            <label><input type="checkbox" value="" disabled>Option 3</label>
-                            <input type="text" placeholder="Quantity"/>
+                            <div class="checkbox quantity-check">
+                            <label><input type="checkbox" value="">Large</label>
+                            <input type="text" class="input-large" placeholder="Quantity"/>
                         </div>  
                             <!-- <input type="text" placeholder="Enter new category name" class="input-xlarge ng-pristine ng-untouched ng-valid ng-empty" ng-model="category.category_name"> -->
                         </div>
@@ -97,8 +93,24 @@
                     <hr>
                 </fieldset>
                 </div>
-            <div class="span3">
+            <div class="span5">
                     <fieldset>
+                        <div class="form-group">
+                        <label class="form-label"><strong>Images</strong></label>
+                        <div class="form">
+                            <button type="button" onClick="fileUploadTriggered()"> Upload</button>
+                            <input type="file" id="prod_image" name="images[]" ng-model="files" style="display:none" multiple onchange="angular.element(this).scope().addImages()">
+                        </div>
+                    </div>
+                         <div class="row" id="image_preview">
+                             <div class='span1' ng-repeat="image in prodImage">
+                                 <div class="form-group">
+                                    <img ng-click="selectThumbnail(image.blobUrl)" class='img-responsive' src="{{image.blobUrl}}"/> 
+                                    <label ng-if="image.isThumbnail">Thumbnail</label>
+                                 </div>
+
+                                </div>
+                         </div>
             <!-- image preview section -->
                 </fieldset>
                 </div>
@@ -106,7 +118,7 @@
             
                 
                 
-            </form>					
+            <!-- </form>					 -->
             <div class="modal-footer d-flex justify-content-center">
                 <!-- <button class="btn btn-default">Login</button> 0-->
                     <div class="actions"><input tabindex="9" class="btn btn-inverse large" type="button" value="Save" ng-click="save()"></div>
@@ -115,3 +127,25 @@
         </div>
     </div>
 </div>
+</section>
+
+<!-- add product modal popup -->
+
+
+
+<script>
+$(document).ready(function(){
+    
+});
+function fileUploadTriggered(){
+        $('#prod_image').click();
+    }
+    function preview_images() 
+{
+ var total_file=document.getElementById("prod_image").files.length;
+ for(var i=0;i<total_file;i++)
+ {
+  $('#image_preview').append("<div class='span1'><img class='img-responsive' src='"+URL.createObjectURL(event.target.files[i])+"'></div>");
+ }
+}
+    </script>

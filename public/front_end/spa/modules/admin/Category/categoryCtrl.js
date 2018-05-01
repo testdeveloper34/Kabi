@@ -62,6 +62,7 @@ $scope.allTypes=[];
             'subCategory_name':''
         });
     }
+<<<<<<< HEAD
     $scope.remove=function(index,id){
         //alert(index+" "+id)
         if(id!=null && id!=undefined && id!=""){
@@ -82,6 +83,30 @@ $scope.allTypes=[];
         $scope.category.sub_categories.splice(index,1);
      }
         
+=======
+    $scope.remove=function(index){
+        if (!index){
+            console.log("sdwds")
+        }    
+        else{
+        swal({
+                   title: "Are you sure?",
+					text: "Are you sure you want to delete this Category ?",
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#DD6B55",
+					confirmButtonText: "Yes",
+					cancelButtonText: "No",
+					closeOnConfirm: true
+
+				}, function () {
+
+					
+ $scope.category.sub_categories.splice(index,1);
+                });
+        }
+       
+>>>>>>> b325eef8f08db1fe520943535256e3664eccbd83
     }
     $scope.save=function()
     {
