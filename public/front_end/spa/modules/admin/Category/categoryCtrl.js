@@ -62,7 +62,27 @@ $scope.allTypes=[];
         });
     }
     $scope.remove=function(index){
-        $scope.category.sub_categories.splice(index,1);
+        if (!index){
+            console.log("sdwds")
+        }    
+        else{
+        swal({
+                   title: "Are you sure?",
+					text: "Are you sure you want to delete this Category ?",
+					type: "warning",
+					showCancelButton: true,
+					confirmButtonColor: "#DD6B55",
+					confirmButtonText: "Yes",
+					cancelButtonText: "No",
+					closeOnConfirm: true
+
+				}, function () {
+
+					
+ $scope.category.sub_categories.splice(index,1);
+                });
+        }
+       
     }
     $scope.save=function()
     {

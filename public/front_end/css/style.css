@@ -13,8 +13,43 @@
     }
 }
 .modal{
-        width: 630px;
+    width: 1030px;
+    position: relative;
+    left: 350px;
+    bottom: 300px; 
 }
 .modal .modal-form{
     padding-left: 20px;
 }
+.quantity-check{padding-bottom: 22px;}
+.quantity-check label{
+    display: inline;
+}
+.quantity-check input[type=text]{
+        right: 130px;
+    float: right;
+    bottom: 8px;
+    position: relative;
+}
+#image_preview img{
+width: 151px;
+    height: 150px;
+}
+#image_preview div{
+width: 142px;
+    /* padding: 0px; */
+    margin: 10px 5px 10px 5px;
+}
+.modal-header .close {
+    margin-top: 2px;
+    bottom: 23px;
+    position: relative;
+}
+#image_preview div.span1 label{
+   position: relative;
+    background: lightblue;
+    font-size: 12px;
+    font-weight: bold;
+    bottom: 20px;
+}
+ 
