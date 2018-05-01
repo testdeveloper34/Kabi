@@ -1,5 +1,5 @@
 "use strict";   
-angular.module('kabi').controller('categoryCtrl', ['$scope','commonServices',function ($scope,commonServices) {
+angular.module('kabi').controller('categoryCtrl', ['$scope','commonServices','notificationService',function ($scope,commonServices,notificationService) {
 
     $scope.category={};
     $scope.category.sub_categories=[ {
@@ -62,51 +62,46 @@ $scope.allTypes=[];
             'subCategory_name':''
         });
     }
-<<<<<<< HEAD
     $scope.remove=function(index,id){
-        //alert(index+" "+id)
-        if(id!=null && id!=undefined && id!=""){
-            commonServices.deleteServiceparam("/api/deleteSubCategory/"+id).then(function(response){
-                // console.log(response);
-                if(response.data.code == 200){
-                   $scope.category.sub_categories.splice(index,1);
-                    // call toaster 
-                    // call get list here
-                }
-                else{
-                    alert(response.data.message);
-                }
-                
-             });
-        }
-     else{
-        $scope.category.sub_categories.splice(index,1);
-     }
-        
-=======
-    $scope.remove=function(index){
-        if (!index){
-            console.log("sdwds")
-        }    
-        else{
         swal({
-                   title: "Are you sure?",
-					text: "Are you sure you want to delete this Category ?",
-					type: "warning",
-					showCancelButton: true,
-					confirmButtonColor: "#DD6B55",
-					confirmButtonText: "Yes",
-					cancelButtonText: "No",
-					closeOnConfirm: true
+            title: "Are you sure?",
+             text: "Are you sure you want to delete this Sub Category ?",
+             type: "warning",
+             showCancelButton: true,
+             confirmButtonColor: "#DD6B55",
+             confirmButtonText: "Yes",
+             cancelButtonText: "No",
+             closeOnConfirm: true
 
-				}, function () {
-
-					
- $scope.category.sub_categories.splice(index,1);
-                });
-        }
-       
->>>>>>> b325eef8f08db1fe520943535256e3664eccbd83
+         }, function () {
+            if(id!=null && id!=undefined && id!=""){
+                commonServices.deleteServiceparam("/api/deleteSubCategory/"+id).then(function(response){
+                    // console.log(response);
+                    if(response.data.code == 200){
+                       $scope.category.sub_categories.splice(index,1);
+                       notificationService.displaySuccess("Sub category deleted successfully");
+                        // call toaster 
+                        // call get list here
+                    }
+                    else{
+                        notificationService.displaySuccess(response.data.message);
+                    }
+                    
+                 });
+            }
+         else{
+            $scope.category.sub_categories.splice(index,1);
+            notificationService.displaySuccess("Sub category deleted successfully");                              
+            try{
+                $scope.$apply();           
+            }
+            catch(ex){
+            }
+         }
+         })
+        //alert(index+" "+id)
+      
+        
     }
     $scope.save=function()
     {
@@ -129,22 +124,33 @@ $scope.getCategory();
         
     }
     $scope.deleteCategory=function(id){
-        commonServices.deleteServiceparam("/api/deleteCategory/"+id).then(function(response){
-            // console.log(response);
-            if(response.data.code == 200){
-                alert("category delete successfully");
-                $scope.category={};
-                $scope.category.category_type="5adc4f7b76ce5f35d8df9687";
-                $scope.getCategory();
-                // call toaster 
-                // call get list here
-            }
-            else{
-                alert(response.data.message);
-            }
-            
-         });
-        
+        swal({
+            title: "Are you sure?",
+             text: "Are you sure you want to delete this Category ?",
+             type: "warning",
+             showCancelButton: true,
+             confirmButtonColor: "#DD6B55",
+             confirmButtonText: "Yes",
+             cancelButtonText: "No",
+             closeOnConfirm: true
+
+         }, function () {
+            commonServices.deleteServiceparam("/api/deleteCategory/"+id).then(function(response){
+                // console.log(response);
+                if(response.data.code == 200){
+                    notificationService.displaySuccess("category deleted successfully");
+                    $scope.category={};
+                    $scope.category.category_type="5adc4f7b76ce5f35d8df9687";
+                    $scope.getCategory();
+                    // call toaster 
+                    // call get list here
+                }
+                else{
+                    notificationService.displayError(response.data.message)
+                }
+                
+             });
+         });      
     }
     // alert('home');
     }]);
