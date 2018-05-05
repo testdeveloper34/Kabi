@@ -113,7 +113,7 @@ $scope.allTypes=[];
                  $scope.category.sub_categories=[ {
         'subCategory_name':''
     }];
-$scope.category.category_type="5adc4f7b76ce5f35d8df9687";
+//$scope.category.category_type="5adc4f7b76ce5f35d8df9687";
 $scope.getCategory();
                 // call get list here
             }
@@ -140,7 +140,10 @@ $scope.getCategory();
                 if(response.data.code == 200){
                     notificationService.displaySuccess("category deleted successfully");
                     $scope.category={};
-                    $scope.category.category_type="5adc4f7b76ce5f35d8df9687";
+                    $scope.category.sub_categories=[ {
+                        'subCategory_name':''
+                    }];
+                    $scope.IsAdd=true;                    
                     $scope.getCategory();
                     // call toaster 
                     // call get list here
