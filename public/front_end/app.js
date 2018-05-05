@@ -67,9 +67,9 @@ angular.module('kabi', ['ui.router','LocalStorageModule','datatables']);
                     //}
                 },
             })
-            .state('Admin.AddCategory', {
-                url: '/admin/addcategory',
-                templateUrl:  '/spa/modules/admin/Category/views/addCategory.html',
+            .state('Admin.Category', {
+                url: '/admin/category',
+                templateUrl:  '/spa/modules/admin/Category/views/category.html',
                 controller:'categoryCtrl'
             })
             .state('Admin.ProductList', {
