@@ -51,7 +51,7 @@
                     <div class="form-group">
                         <label class="form-label"><strong>Product Name</strong></label>
                         <div class="form">
-                            <input type="text" placeholder="Enter new category name" class="input-xlarge ng-pristine ng-untouched ng-valid ng-empty" ng-model="category.category_name">
+                            <input type="text" placeholder="Enter new category name" class="input-xlarge ng-pristine ng-untouched ng-valid ng-empty" ng-model="productVm.item.product_name">
                         </div>
                     </div>
                     <div class="control-group">
@@ -60,7 +60,7 @@
                             <!-- <select id="categoryType" placeholder="Select Category Type" class="input-xlarge ng-pristine ng-untouched ng-valid ng-empty" ng-model="category.category_type">
                                 <option value="" selected="selected">Select</option>
                             </select> -->
-                        <textarea placeholder="Select Category Type" class="input-xlarge ng-pristine ng-untouched ng-valid ng-empty" ng-model="category.category_type">
+                        <textarea placeholder="Select Category Type" class="input-xlarge ng-pristine ng-untouched ng-valid ng-empty" ng-model="productVm.item.description">
                             </textarea>
                             <!-- <input type="password" placeholder="Enter your email" class="input-xlarge"> -->
                         </div>
@@ -68,7 +68,47 @@
                     <div class="form-group">
                         <label class="form-label"><strong>Price</strong></label>
                         <div class="form">
-                            <input type="text" placeholder="Enter new category name" class="input-xlarge ng-pristine ng-untouched ng-valid ng-empty" ng-model="category.category_name">
+                            <input type="text" placeholder="Enter new category name" class="input-xlarge ng-pristine ng-untouched ng-valid ng-empty" ng-model="productVm.item.price">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><strong>Category Type</strong></label>
+                        <div class="form">
+                           <select id="categoryType" placeholder="Select Category Type"  class="input-xlarge" ng-model="productVm.item.category_type_id">
+                                <option value="" selected="selected">Select</option>
+                                <option ng-repeat="opt in allTypes" ng-value="opt._id">{{opt.category_type_name}}</option>
+                                <!--<option ng-value="-1" value="-1">Edit</option>-->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><strong>Category</strong></label>
+                        <div class="form">
+                           <select id="categoryType" placeholder="Select Category"  class="input-xlarge" ng-model="productVm.item.category_id">
+                                <option value="" selected="selected">Select</option>
+                                <option ng-repeat="opt in allTypes" ng-value="opt._id">{{opt.category_type_name}}</option>
+                                <!--<option ng-value="-1" value="-1">Edit</option>-->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><strong>Sub-Category</strong></label>
+                        <div class="form">
+                           <select id="categoryType" placeholder="Select Sub-Category"  class="input-xlarge" ng-model="productVm.item.sub_category_id">
+                                <option value="" selected="selected">Select</option>
+                                <option ng-repeat="opt in allTypes" ng-value="opt._id">{{opt.category_type_name}}</option>
+                                <!--<option ng-value="-1" value="-1">Edit</option>-->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><strong>Size Group</strong></label>
+                        <div class="form">
+                           <select id="categoryType" placeholder="Select Sub-Category"  class="input-xlarge" >
+                                <option value="" selected="selected">Select</option>
+                                <option ng-repeat="opt in allTypes" ng-value="opt._id">{{opt.category_type_name}}</option>
+                                <!--<option ng-value="-1" value="-1">Edit</option>-->
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -121,7 +161,7 @@
             <!-- </form>					 -->
             <div class="modal-footer d-flex justify-content-center">
                 <!-- <button class="btn btn-default">Login</button> 0-->
-                    <div class="actions"><input tabindex="9" class="btn btn-inverse large" type="button" value="Save" ng-click="save()"></div>
+                    <div class="actions"><input tabindex="9" class="btn btn-inverse large" type="button" value="Save" ng-click="saveProduct()"></div>
                 
             </div>
         </div>

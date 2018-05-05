@@ -101,12 +101,31 @@
                 return deferred.promise;
             }
 
+            var getBase64 = function (file) {
+                // return new Promise((resolve, reject) => {
+                //     const reader = new FileReader();
+                //     reader.readAsDataURL(file);
+                //     reader.onload = () => resolve(reader.result);
+                //     reader.onerror = error => reject(error);
+                // });
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function () {
+                    console.log(reader.result);
+                };
+                reader.onerror = function (error) {
+                    console.log('Error: ', error);
+                };
+            }
+
             commonService.getService = getService;
             commonService.getServiceparam = getServiceparam;
             commonService.postService = postService;
             commonService.putService = putService;
             commonService.deleteService = deleteService;
             commonService.deleteServiceparam = deleteServiceparam;
+            commonService.getBase64 = getBase64;
+            
             
             
 return commonService;
