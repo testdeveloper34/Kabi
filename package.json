@@ -8,9 +8,13 @@
   "license": "",
   "main": "app.js",
   "dependencies": {
+    "async": "^2.6.0",
+    "bcrypt": "^2.0.1",
     "angular-datatables": "^0.6.2",
     "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "express": "^4.12.3",
+    "file-system": "^2.2.2",
     "jsonwebtoken": "^8.2.1",
     "mongoose": "^5.0.13",
     "path": "^0.12.7",

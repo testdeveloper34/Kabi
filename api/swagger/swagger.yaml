@@ -1,9 +1,9 @@
 swagger: "2.0"
 info:
   version: "0.0.1"
-  title: Hello World App
+  title: Kabi
 # during dev, should point to your local machine
-host: localhost:5001
+host: 192.168.43.1:5001
 # basePath prefixes all resource paths 
 basePath: /
 # 
@@ -18,21 +18,47 @@ consumes:
 produces:
   - application/json
 paths:
-  /api/getSubSubCategory:
+  /api/addItemImages/:
     # our controller name
-    x-swagger-router-controller: subSubCategory_ctrl
-    get:
+    x-swagger-router-controller: item_ctrl
+    post:
       description: Add new item by admin
       # function to be called
-      operationId: getSubSubCategory
-      tags: ['Category Module']
+      operationId: addImageToItem
+      consumes:
+        - multipart/form-data      
+      tags: ['Items Module']
+      parameters:
+        - name: files
+          in: formData
+          type: file
+          required: false
+          description: File
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse" 
+
+  /api/addsizes:
+    # our controller name
+    x-swagger-router-controller: size_ctrl
+    post:
+      description: Add new item by admin
+      # function to be called
+      operationId: addSizes
+      tags: ['Size Module']
       parameters:
         - name: body
           description: category properties
           in: body
-          required: false
+          required: true
           schema:
-            $ref: "#/definitions/getCategory"
+            $ref: "#/definitions/addSizes"
       responses:
         "200":
           description: Success
@@ -43,21 +69,89 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse" 
             
-  /api/addsubSubCategory:
+  /api/getsizes:
     # our controller name
-    x-swagger-router-controller: subSubCategory_ctrl
+    x-swagger-router-controller: size_ctrl
+    get:
+      description: Add new item by admin
+      # function to be called
+      operationId: getSizes
+      tags: ['Size Module']
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse" 
+
+  /api/addcategorytype:
+    # our controller name
+    x-swagger-router-controller: category_type_ctrl
     post:
       description: Add new item by admin
       # function to be called
-      operationId: addSubSubCategory
+      operationId: addCategoryType
       tags: ['Category Module']
       parameters:
         - name: body
-          description: sub category properties
+          description: category properties
           in: body
           required: true
           schema:
-            $ref: "#/definitions/newSubSubCategory"
+            $ref: "#/definitions/newCategoryType"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"            
+            
+  /api/getCategoryTypes:
+    # our controller name
+    x-swagger-router-controller: category_type_ctrl
+    post:
+      description: Add new item by admin
+      # function to be called
+      operationId: getCategoryTypes
+      tags: ['Category Module']
+      parameters:
+        - name: body
+          description: category properties
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/getCategory"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"            
+
+  /api/addCategory:
+    # our controller name
+    x-swagger-router-controller: category_ctrl
+    post:
+      description: Add new item by admin
+      # function to be called
+      operationId: addCategory
+      tags: ['Category Module']
+      parameters:
+        - name: body
+          description: category properties
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/newCategory"
       responses:
         "200":
           description: Success
@@ -68,21 +162,45 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
             
-  /api/getSubCategory:
+  /api/getCategory:
     # our controller name
-    x-swagger-router-controller: subCategory_ctrl
-    get:
+    x-swagger-router-controller: category_ctrl
+    post:
       description: Add new item by admin
       # function to be called
-      operationId: getSubCategory
+      operationId: getCategory
       tags: ['Category Module']
       parameters:
         - name: body
           description: category properties
           in: body
-          required: false
+          required: true
           schema:
             $ref: "#/definitions/getCategory"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+                        
+  /api/deleteCategory/{_id}:
+    # our controller name
+    x-swagger-router-controller: category_ctrl
+    delete:
+      description: Add new item by admin
+      # function to be called
+      operationId: deleteCategory
+      tags: ['Category Module']
+      parameters:
+        - name: _id
+          in: path
+          description: Category Id
+          required: true
+          type: string
       responses:
         "200":
           description: Success
@@ -117,20 +235,20 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-
-  /api/getCategory:
+            
+  /api/getSubCategory/:
     # our controller name
-    x-swagger-router-controller: category_ctrl
-    get:
+    x-swagger-router-controller: subCategory_ctrl
+    post:
       description: Add new item by admin
       # function to be called
-      operationId: getCategory
+      operationId: getSubCategory
       tags: ['Category Module']
       parameters:
         - name: body
           description: category properties
           in: body
-          required: false
+          required: true
           schema:
             $ref: "#/definitions/getCategory"
       responses:
@@ -141,23 +259,47 @@ paths:
         default:
           description: Error
           schema:
-            $ref: "#/definitions/ErrorResponse"
-            
-  /api/addCategory:
+            $ref: "#/definitions/ErrorResponse" 
+
+  /api/deleteSubCategory/{_id}:
     # our controller name
-    x-swagger-router-controller: category_ctrl
+    x-swagger-router-controller: subCategory_ctrl
+    delete:
+      description: Add new item by admin
+      # function to be called
+      operationId: deleteSubCategory
+      tags: ['Category Module']
+      parameters:
+        - name: _id
+          in: path
+          description: Category Id
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"             
+
+  /api/addsubSubCategory:
+    # our controller name
+    x-swagger-router-controller: subSubCategory_ctrl
     post:
       description: Add new item by admin
       # function to be called
-      operationId: addCategory
+      operationId: addSubSubCategory
       tags: ['Category Module']
       parameters:
         - name: body
-          description: category properties
+          description: sub category properties
           in: body
           required: true
           schema:
-            $ref: "#/definitions/newCategory"
+            $ref: "#/definitions/newSubSubCategory"
       responses:
         "200":
           description: Success
@@ -167,6 +309,56 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+
+  /api/getSubSubCategory:
+    # our controller name
+    x-swagger-router-controller: subSubCategory_ctrl
+    post:
+      description: Add new item by admin
+      # function to be called
+      operationId: getSubSubCategory
+      tags: ['Category Module']
+      parameters:
+        - name: body
+          description: category properties
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/getCategory"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse" 
+                                                            
+  /api/deleteSubSubCategory:
+    # our controller name
+    x-swagger-router-controller: subSubCategory_ctrl
+    post:
+      description: Add new item by admin
+      # function to be called
+      operationId: deleteSubSubCategory
+      tags: ['Category Module']
+      parameters:
+        - name: body
+          description: category properties
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/deleteCategory"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse" 
             
   /api/register:
     # our controller name
@@ -243,7 +435,7 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
             
-  /api/addItem:
+  /api/additem:
     # our controller name
     x-swagger-router-controller: item_ctrl
     post:
@@ -266,12 +458,59 @@ paths:
         default:
           description: Error
           schema:
+            $ref: "#/definitions/ErrorResponse"
+            
+  /api/getAllItems:
+    # our controller name
+    x-swagger-router-controller: item_ctrl
+    post:
+      description: Add new item by admin
+      # function to be called
+      operationId: getAllItems
+      tags: ['Items Module']
+      parameters:
+        - name: body
+          description: item properties
+          in: body
+          required: false
+          schema:
+            $ref: "#/definitions/getAllItems"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
             $ref: "#/definitions/ErrorResponse"            
             
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
 definitions:
+  addSizes:
+    type: object
+    properties:
+      size_name:
+        type: string
+        description: Size name
+      size_group:
+        type: string
+        description: Group name        
+    required:
+      - size_name
+      - size_group
+
+  getAllItems:
+    type: object
+    properties:
+      page:
+        type: number
+        description: page number
+      limit:
+        type: number
+        description: limit per page  
 
   newSubSubCategory:
     type: object
@@ -299,6 +538,13 @@ definitions:
       - subCategory_name
       - category_id
 
+  deleteCategory:
+    type: object
+    properties:
+      _id:
+        type: string
+        description: id       
+
   getCategory:
     type: object
     properties:
@@ -314,9 +560,31 @@ definitions:
     properties:
       category_name:
         type: string
-        description: Category name       
+        description: Category name
+      category_type:
+        type: string
+        description: id of category type
+      sub_categories:
+        type: array
+        items: 
+          type: object
+          properties:
+            subCategory_name:
+              type: string
+              description: Category name 
+            
     required:
       - category_name
+      - category_type
+      
+  newCategoryType:
+    type: object
+    properties:
+      category_type_name:
+        type: string
+        description: Category name       
+    required:
+      - category_type_name      
 
   newItem:
     type: object
@@ -325,20 +593,47 @@ definitions:
         type: string
         description: Item name
       item_price:
-        type: number
+        type: string
         description: Item price
       item_description:
         type: string
         description: Item description 
       category_id:
         type: string
-        description: Category Id        
+        description: Category Id 
+      category_type_id:
+        type: string
+        description: Category Id  
+      sub_category_id:
+        type: string
+        description: Category Id 
+      sub_sub_category_id:
+        type: string
+        description: Category Id 
+      quantity:
+        type: array
+        description: Category Id
+        items:
+          $ref: '#/definitions/sizeArray'         
     required:
       - item_name
       - item_price
       - item_description
       - category_id
-
+      - category_type_id
+      - quantity
+      
+  sizeArray:
+    type: object
+    properties:
+      size_id:
+        type: string
+      quantity:
+        type: string
+    required:
+      - size_id
+      - quantity
+      
   registerUser:
     type: object
     properties:

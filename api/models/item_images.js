@@ -13,7 +13,11 @@ var ItemImagesSchema = new mongoose.Schema({
     item_id: {
         require: [true, 'Item is required'],
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Item'
+        ref: 'Items'
+    },
+    is_thumbnail: {
+        type: Boolean,
+        default: false
     },
     deleted: {
         type: Boolean,

@@ -2,11 +2,59 @@
 
 var util = require('util');
 var subSubcategoryModel = require('../models/subSubCategories');
+var itemsModel = require('../models/item');
 
 module.exports = {
     addSubSubCategory: addSubSubCategory,
-    getSubSubCategory: getSubSubCategory
+    getSubSubCategory: getSubSubCategory,
+    deleteSubSubCategory: deleteSubSubCategory
 };
+
+function deleteSubSubCategory(req, res) {
+
+    if (!req.body._id) {
+        res.json({
+            code: req.config.RESPONSE_CODES.BAD_REQUEST,
+            message: req.config.RESPONSE_MESSAGES.BAD_REQUEST
+        })
+    }else{
+        let ID = req.body._id
+        itemsModel.find({
+            sub_sub_category_id: ID
+        }).exec((err,data)=>{
+            if(err){
+                res.json({
+                    code: req.config.RESPONSE_CODES.ERROR,
+                    message: req.config.RESPONSE_MESSAGES.ERROR,
+                    error: err
+                })
+            }if(data){
+                if(!data.length){
+                    subSubcategoryModel.findByIdAndUpdate({_id: ID},{deleted:true},(err, data) => {
+                        if (err) {
+                            res.json({
+                                code: req.config.RESPONSE_CODES.ERROR,
+                                message: req.config.RESPONSE_MESSAGES.ERROR,
+                                error: err
+                            })
+                        } else {
+                            res.json({
+                                code: req.config.RESPONSE_CODES.SUCCESS,
+                                message: req.config.RESPONSE_MESSAGES.SUCCESS,
+                                data: data
+                            });
+                        }
+                    })
+                }else{
+                    res.json({
+                        code: req.config.RESPONSE_CODES.BAD_REQUEST,
+                        message: req.config.RESPONSE_MESSAGES.BAD_REQUEST
+                    })
+                }
+            }
+        })
+    }
+}
 
 function getSubSubCategory(req, res) {
 
@@ -46,7 +94,7 @@ function addSubSubCategory(req, res) {
         }
 
         newCategory.sub_category_id = req.body.sub_category_id ? req.body.sub_category_id : null;
-        newCategory.item_name = req.body.item_name ? req.body.item_name.toLowerCase() : null;
+        newCategory.name = req.body.name ? req.body.name.toLowerCase() : null;
 
         newCategory.save((err, item) => {
             if (err) {

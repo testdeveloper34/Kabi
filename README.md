@@ -1,1 +1,1 @@
-# Skeleton project for Swagger
+E-commerce for fashion products

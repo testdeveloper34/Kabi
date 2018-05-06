@@ -9,6 +9,11 @@ var CategorySchema = new mongoose.Schema({
     category_name: {
         type: String,
     },
+    category_type: {
+        require: [true, 'Category type is required'],
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'categorytypes'
+    },
     deleted: {
         type: Boolean,
         default: false

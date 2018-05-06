@@ -6,7 +6,7 @@ var express = require('express');
 var path = require('path')
 var bodyParser = require('body-parser');
 var appConfig = require('./config/config');
-
+var cors  = require('cors');
 module.exports = app; // for testing
 
 // custom files
@@ -16,10 +16,12 @@ require('./config/db');
 var config = {
   appRoot: __dirname // required config
 };
+// app.use(express.limit(100000000));
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true,parameterLimit:5000000}));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public/front_end')));
