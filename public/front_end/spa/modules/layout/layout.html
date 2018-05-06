@@ -24,7 +24,7 @@
 					<nav id="menu" class="pull-right">
 						<ul>
 							<li id="visible" ng-repeat="type in allTypes track by $index">
-								<a ng-mouseenter="test(type._id)">{{type.category_type_name}}</a>
+								<a ng-mouseenter="showContent(type._id)">{{type.category_type_name}}</a>
 								 <ul id="hidden">
 	 <li id="visible2" ng-repeat="category in currentCategory track by $index">
 	 

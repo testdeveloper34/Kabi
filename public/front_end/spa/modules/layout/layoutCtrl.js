@@ -1,18 +1,24 @@
  "use strict";   
-angular.module('kabi').controller('layoutCtrl', ['$scope','$http','commonServices',function ($scope,$http,commonServices) {
+angular.module('kabi').controller('layoutCtrl', ['$scope','$http','commonServices','$linq',function ($scope,$http,commonServices,$linq) {
 $scope.currentCategory=[];
 $scope.$on('$viewContentLoaded', function (a) {
            $scope.getCategoryTypes();
            $scope.getAllCategory();
         });
-        $scope.test=function(id)
+        $scope.showContent=function(id)
         {
             $scope.currentCategory=[];
-        angular.forEach($scope.categoryList,function(element) {
-            if(element.category_type[0]._id==id){
-                $scope.currentCategory.push(element);
-            }
-        })
+
+              $scope.currentCategory = $linq.Enumerable().From($scope.categoryList)
+                                .Where(function (x) {
+                                    return x.category_type[0]._id === id;
+                                }).Select(function (x) { return x }).ToArray();
+
+        // angular.forEach($scope.categoryList,function(element) {
+        //     if(element.category_type[0]._id==id){
+        //         $scope.currentCategory.push(element);
+        //     }
+        // })
 
         
         }
