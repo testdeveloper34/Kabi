@@ -16,12 +16,18 @@ module.exports =  {
             SUCCESS:200,
             BAD_REQUEST:400,
             ERROR:500,
-            WRONG_CREDENTIALS:420
+            WRONG_CREDENTIALS:420,
+            NOT_FOUND: 404,
+            NO_CONTENT: 204
         },
         RESPONSE_MESSAGES:{
             SUCCESS:'successfull!',
             BAD_REQUEST: 'BAD REQUEST!',
             ERROR: 'ERROR OCCURED',
-            WRONG_CREDENTIALS: 'Incorrect Email or pasword'
+            WRONG_CREDENTIALS: 'Incorrect Email or pasword',
+            NOT_FOUND: 'Oops! Not found!',
+            ITEM_EXIST: 'Oops! Cannot delete category for which item exists, please delete item first!',
+            CHILD_EXIST: 'Oops! Cannot delete category for which sub category exists, please delete child categories for this category first!',
+            NO_CONTENT: 'No content found!'
         }
 };

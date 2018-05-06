@@ -33,3 +33,69 @@ category_id
 item_id
 image
 
+ // async.parallel({
+                        //     Images: function(cb) {
+                        //         console.log('images --->',req.body.images);
+                        //         if(false && req.body.images && Array.isArray(req.body.images) && req.body.images.length){
+                        //             let imgArr = req.body.images;
+                        //             async.each(imgArr, function(file, callback) {
+                        //                 let base64String = file.base64;
+                        //                 let base64Image = base64String.split(';base64,').pop();
+                        //                 console.log('image ---> ',base64Image);
+                        //                 let imgPath = '../../public/uploads'+Date.now()+'.'+file.mimeType;
+                        //                 fs.writeFile(imgPath, base64Image, {encoding: 'base64'}, function(err) {
+                        //                     if(err){
+                        //                         console.log(err);
+                        //                         let itemImage = new itemImagesModel();
+                        //                         itemImage.image_path = 'http://192.168.43.65/'+imgPath.split('../../')[1];
+                        //                         itemImage.item_id= item._id;
+                        //                         itemImage.is_thumbnail = file.is_thumbnail;
+                        //                         itemImage.save().exec((err,data)=>{
+                        //                             callback();
+                        //                         })
+                        //                     }else{
+                        //                         callback();
+                        //                     }
+                        //                 });
+                        //             }, function(err) {
+                        //                 cb(null,true);
+                        //             });
+                        //         }else{
+                        //             cb(null,true);
+                        //         }
+                        //     },
+                        //     quantities: function(cb) {
+                        //         console.log('quantity --->',req.body.quantity);
+                        //         if(req.body.quantity && Array.isArray(req.body.quantity) && req.body.quantity.length){
+                        //             let quantityArr = req.body.quantity;
+                        //             async.each(quantityArr, function(file, callback) {
+                        //                 let quantity = new itemQuantityModel();
+                        //                 quantity.item_id= item._id;
+                        //                 quantity.size_id= item.size_id;
+                        //                 quantity.quantity= item.quantity;
+                        //                 quantity.save((err,data)=>{
+                        //                     callback();
+                        //                 })
+                        //             }, function(err) {
+                        //                 cb(null,true);
+                        //             });
+                        //         }else{
+                        //             cb(null,true);
+                        //         }
+                        //     }
+                        // }, function(err, result) {
+                        //     if(result.images && result.quantities){
+                        //         res.json({
+                        //             code: req.config.RESPONSE_CODES.SUCCESS,
+                        //             message: req.config.RESPONSE_MESSAGES.SUCCESS,
+                        //             data: item
+                        //         });
+                        //     }else{
+                        //         res.json({
+                        //             code: req.config.RESPONSE_CODES.SUCCESS,
+                        //             message: req.config.RESPONSE_MESSAGES.SUCCESS,
+                        //             data: item
+                        //         });
+                        //     }
+                        // });
+
