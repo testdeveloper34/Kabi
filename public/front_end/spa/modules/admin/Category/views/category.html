@@ -24,37 +24,78 @@
                     </tbody>
                   </table>
         </div>
-        <div class="span4">					
+        <div class="span4" ng-init="Save = true">					
             <h4 class="title"><span class="text"><strong>Add Category</strong></span></h4>
-            <form action="#" method="post" class="form-stacked">
-                <fieldset>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+            <form  role="form" role="form" novalidate name="form"   class="form-stacked">
+         
+
+
+   <!-- <div class="form-group has-feedback">
+                                        <input class="form-control" type="text" name="company_name" ng-model="user.company_name" maxlength="50" placeholder="Company Name" required>
+                                        <span class="fa fa-building form-control-feedback"></span>
+                                        <div ng-show="form.$submitted || form.company_name.$touched">
+                                            <span class="text-danger" ng-show="form.company_name.$error.required" class="text-danger">Please enter company name <span class="text-danger" ng-show="form.company_name.$error.pattern">Invalid company name</span>
+                                        </div>
+                                    </div> -->
+
+
+
+
                     <div class="control-group">
                         <label class="control-label">Category Name</label>
                         <div class="controls">
-                            <input type="text" placeholder="Enter new category name" class="input-xlarge" ng-model="category.category_name">
+                            <input type="text" placeholder="Enter new category name" name="category_name" class="input-xlarge" maxlength="50" ng-model="category.category_name" required>
+                        <div ng-show="form.$submitted || form.category_name.$touched">
+                                            <span class="text-danger" ng-show="form.category_name.$error.required" class="text-danger">Please enter category name <span class="text-danger" ng-show="form.category_name.$error.pattern">Invalid category name</span>
+                                        </div>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label">Category Type</label>
                         <div class="controls">
-                            <select id="categoryType" placeholder="Select Category Type"  class="input-xlarge" ng-model="category.category_type">
+                            <select id="categoryType" placeholder="Select Category Type" name="category_type" class="input-xlarge" ng-model="category.category_type" ng-required="true">
+                          
                                 <option value="" selected="selected">Select</option>
+  
                                 <option ng-repeat="opt in allTypes" ng-value="opt._id">{{opt.category_type_name}}</option>
                                 <!--<option ng-value="-1" value="-1">Edit</option>-->
+
                             </select>
-                        </select>
+                          <div ng-show="form.$submitted || form.category_type.$touched">
+                                            <span class="text-danger" ng-show="form.category_type.$error.required" class="text-danger">Please enter category name <span class="text-danger" ng-show="form.category_type.$error.pattern">Invalid category name</span>
+                                        </div>    
+                       
+
                             <!-- <input type="password" placeholder="Enter your email" class="input-xlarge"> -->
                         </div>
                     </div>
                     <div class="control-group">
                         
                     <label class="control-label">Sub-Category <span class="fa fa-plus add-icon" ng-click="addnew()"></span> </label>
-                                                                                        
+                                                                                       
                         <div class="control-group">
                         <div class="controls" ng-repeat="subcategory in category.sub_categories track by $index">
-                                <input type="text" ng-model="subcategory.subCategory_name" placeholder="Enter any Sub-Category" class="input-xlarge">
+                                <input type="text" ng-model="subcategory.subCategory_name" name="subCategory_name_{{$index}}" placeholder="Enter any Sub-Category" class="input-xlarge" required>
+                                           
                             <span class="fa fa-minus" ng-hide="IsAdd && $first" ng-click="remove($index,subcategory._id)"></span>
-                            </div>
+                               <div ng-show="form.$submitted || form.subCategory_name_{{$index}}.$touched">
+                                            <span class="text-danger" ng-show="form.subCategory_name_{{$index}}.$error.required" class="text-danger">Please enter sub category name <span class="text-danger" ng-show="form.subCategory_name.$error.pattern">Invalid sub category name</span>
+                                        </div>          
+                        </div>
                    </div>                        
                         
                     </div>							                            
@@ -62,8 +103,8 @@
                         <p>Now that we know who you are. I'm not a mistake! In a comic, you know how you can tell who the arch-villain's going to be?</p>
                     </div> -->
                     <hr>
-                    <div class="actions"><input tabindex="9" class="btn btn-inverse large" type="button" value="Save" ng-click="save()"></div>
-                </fieldset>
+                   <button type="submit" class="btn btn-inverse large"   ng-disabled="disabled" data-ng-click="save(form)">Save</button>
+               
             </form>					
         </div>				
     </div>

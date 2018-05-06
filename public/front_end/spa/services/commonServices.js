@@ -6,7 +6,7 @@
 
     function commonServices($http, $state, $q) {
             var commonService = {};
-            var baseUrl="http://192.168.43.65:5001";
+            var baseUrl="http://192.168.43.215:5001";
             var getService = function (getUrl,ignoreLoader=false) {             
                 var deferred = $q.defer();
                 var requestOption = {

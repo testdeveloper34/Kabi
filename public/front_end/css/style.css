@@ -52,4 +52,19 @@ width: 142px;
     font-weight: bold;
     bottom: 20px;
 }
+.text-danger{
+    color: red;
+}
  
+#hidden {
+  display: none;
+}
+#visible:hover #hidden {
+  display: block;
+}
+#hidden2 {
+  display: none;
+}
+#visible2:hover #hidden2 {
+  display: block;
+}

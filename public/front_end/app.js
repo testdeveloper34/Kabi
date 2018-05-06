@@ -42,6 +42,7 @@ angular.module('kabi', ['ui.router','LocalStorageModule','datatables']);
                 views: {
                     '@': {
                         templateUrl:  '/spa/modules/Layout/layout.html',
+                        controller:'layoutCtrl'
                     },
                     'body@Dashboard': {
                         templateUrl:  '/spa/modules/Layout/content.html'

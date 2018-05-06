@@ -1,4 +1,4 @@
-		<div id="top-bar" class="container">
+<div id="top-bar" class="container">
 			<div class="row">
 				<div class="span4">
 					<form method="POST" class="search_form">
@@ -23,24 +23,21 @@
 					<a href="index.html" class="logo pull-left"><img src="/../../../assets/themes/images/logo.png" class="site_logo" alt=""></a>
 					<nav id="menu" class="pull-right">
 						<ul>
-							<li><a href="./products.html">Woman</a>					
-								<ul>
-									<li><a href="./products.html">Lacinia nibh</a></li>									
-									<li><a href="./products.html">Eget molestie</a></li>
-									<li><a href="./products.html">Varius purus</a></li>									
-								</ul>
-							</li>															
-							<li><a ui-sref="Dashboard.Test">Man</a></li>			
-							<li><a href="./products.html">Sport</a>
-								<ul>									
-									<li><a href="./products.html">Gifts and Tech</a></li>
-									<li><a href="./products.html">Ties and Hats</a></li>
-									<li><a href="./products.html">Cold Weather</a></li>
-								</ul>
-							</li>							
-							<li><a href="./products.html">Hangbag</a></li>
-							<li><a href="./products.html">Best Seller</a></li>
-							<li><a href="./products.html">Top Seller</a></li>
+							<li id="visible" ng-repeat="type in allTypes track by $index">
+								<a ng-mouseenter="test(type._id)">{{type.category_type_name}}</a>
+								 <ul id="hidden">
+	 <li id="visible2" ng-repeat="category in currentCategory track by $index">
+	 
+		 <a>{{category.category_name}}</a>
+		  <ul id="hidden2">
+			  <li ng-repeat="subtype in category.sub_categories track by $index">
+				  <a>{{subtype.subCategory_name}}</a>
+			  </li>
+		  </ul>
+		</li>
+								</ul> 
+
+							</li>
 						</ul>
 					</nav>
 				</div>
