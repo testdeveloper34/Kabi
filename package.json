@@ -10,6 +10,7 @@
   "dependencies": {
     "async": "^2.6.0",
     "bcrypt": "^2.0.1",
+    "angular-datatables": "^0.6.2",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.12.3",

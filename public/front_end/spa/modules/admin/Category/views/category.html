@@ -1,0 +1,70 @@
+<section class="main-content">				
+    <div class="row">
+        <div class="span8">					
+            <h4 class="title"><span class="text"><strong>Category List</strong></span></h4>
+            <table datatable="ng" class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th>Category Name</th>
+                        <th>Category Type</th>
+                        <th>Sub-Category</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="category in categoryList track by $index">
+                        <td ng-bind="category.category_name"></td>
+                        <td ng-bind="category.category_type[0].category_type_name"></td>
+                        <td>john@example.com</td>
+                        <td> <span class="fa fa-edit" ng-click="getCategory(category._id)"></span>|
+                             <span class="fa fa-trash" ng-click="deleteCategory(category._id)"></span> </td>
+                        
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+        </div>
+        <div class="span4">					
+            <h4 class="title"><span class="text"><strong>Add Category</strong></span></h4>
+            <form action="#" method="post" class="form-stacked">
+                <fieldset>
+                    <div class="control-group">
+                        <label class="control-label">Category Name</label>
+                        <div class="controls">
+                            <input type="text" placeholder="Enter new category name" class="input-xlarge" ng-model="category.category_name">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Category Type</label>
+                        <div class="controls">
+                            <select id="categoryType" placeholder="Select Category Type"  class="input-xlarge" ng-model="category.category_type">
+                                <option value="" selected="selected">Select</option>
+                                <option ng-repeat="opt in allTypes" ng-value="opt._id">{{opt.category_type_name}}</option>
+                                <!--<option ng-value="-1" value="-1">Edit</option>-->
+                            </select>
+                        </select>
+                            <!-- <input type="password" placeholder="Enter your email" class="input-xlarge"> -->
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        
+                    <label class="control-label">Sub-Category <span class="fa fa-plus add-icon" ng-click="addnew()"></span> </label>
+                                                                                        
+                        <div class="control-group">
+                        <div class="controls" ng-repeat="subcategory in category.sub_categories track by $index">
+                                <input type="text" ng-model="subcategory.subCategory_name" placeholder="Enter any Sub-Category" class="input-xlarge">
+                            <span class="fa fa-minus" ng-hide="IsAdd && $first" ng-click="remove($index,subcategory._id)"></span>
+                            </div>
+                   </div>                        
+                        
+                    </div>							                            
+                    <!-- <div class="control-group">
+                        <p>Now that we know who you are. I'm not a mistake! In a comic, you know how you can tell who the arch-villain's going to be?</p>
+                    </div> -->
+                    <hr>
+                    <div class="actions"><input tabindex="9" class="btn btn-inverse large" type="button" value="Save" ng-click="save()"></div>
+                </fieldset>
+            </form>					
+        </div>				
+    </div>
+</section>
