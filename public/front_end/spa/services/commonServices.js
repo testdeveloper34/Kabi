@@ -14,7 +14,7 @@
                 };
                 // if (ignoreLoader === true)
                 //     requestOption.ignoreLoadingBar = true;
-                $http.get(getUrl, requestOption ).then(function (response) {
+                $http.get(baseUrl+getUrl, requestOption ).then(function (response) {
                     deferred.resolve(response);
                 }, function (err) {
                     deferred.reject(err);
@@ -86,6 +86,30 @@
                 return deferred.promise;
             }
 
+            var postMultipartService = function (postUrl, postInfo, ignoreLoader=false ) {
+                var deferred = $q.defer();
+                var requestOptions = {
+                    headers: { 'Content-Type': 'multipart/form-data;boundary=----WebKitFormBoundaryp7MA4YWxkTrZu0gW' }
+                }
+                // if (ignoreLoader === true)
+                //     requestOptions.ignoreLoadingBar = true;
+                $http.post(baseUrl+postUrl, postInfo, requestOptions)
+                // $http({
+                //     url:baseUrl+postUrl,
+                //     method:"POST",
+                //     params:postInfo,
+                //     headers: { 'Content-Type': 'multipart/form-data;boundary=----WebKitFormBoundaryp7MA4YWxkTrZu0gW' }
+                // })
+                .then(function (response) {
+                    deferred.resolve(response);
+                }, function (err) {
+
+                    deferred.reject(err);
+                });
+
+                return deferred.promise;
+            }
+
             var deleteService = function (postUrl, postInfo) {
 
                 var deferred = $q.defer();
@@ -102,25 +126,26 @@
             }
 
             var getBase64 = function (file) {
-                // return new Promise((resolve, reject) => {
-                //     const reader = new FileReader();
-                //     reader.readAsDataURL(file);
-                //     reader.onload = () => resolve(reader.result);
-                //     reader.onerror = error => reject(error);
-                // });
-                var reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = function () {
-                    console.log(reader.result);
-                };
-                reader.onerror = function (error) {
-                    console.log('Error: ', error);
-                };
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = error => reject(error);
+                });
+                // var reader = new FileReader();
+                // reader.readAsDataURL(file);
+                // reader.onload = function () {
+                //     return reader.result;
+                // };
+                // reader.onerror = function (error) {
+                //     console.log('Error: ', error);
+                // };
             }
 
             commonService.getService = getService;
             commonService.getServiceparam = getServiceparam;
             commonService.postService = postService;
+            commonService.postMultipartService = postMultipartService;
             commonService.putService = putService;
             commonService.deleteService = deleteService;
             commonService.deleteServiceparam = deleteServiceparam;
