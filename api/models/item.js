@@ -21,7 +21,20 @@ var ItemSchema = new mongoose.Schema({
     category_id: {
         require: [true, 'Category is required'],
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Category'
+        ref: 'categories'
+    },
+    category_type: {
+        require: [true, 'Category type is required'],
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'categorytypes'
+    },
+    sub_category_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'subcategories'
+    },
+    sub_sub_category_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'subsubcategories'
     },
     deleted: {
         type: Boolean,
@@ -31,5 +44,5 @@ var ItemSchema = new mongoose.Schema({
         timestamps: true
     });
 
-var Item = mongoose.model('Item', ItemSchema);
+var Item = mongoose.model('Items', ItemSchema);
 module.exports = Item;
