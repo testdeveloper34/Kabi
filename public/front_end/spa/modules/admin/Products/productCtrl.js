@@ -60,6 +60,13 @@ $scope.selectThumbnail =function(imageUrl){
     });
 }
 
+var saveItemImageUrls =function(imageUrls,itemId){
+    // commonServices.postMultipartService("/api/addItemImages",$scope.productVm.item).then(function(itemResponse){
+    // });
+
+}
+
+
 $scope.saveProduct = function() {
     // angular.forEach($scope.prodImage,function(image) {
     //         var imageBase64 = commonServices.getBase64(image.file)
@@ -83,26 +90,71 @@ $scope.saveProduct = function() {
     //         mimeType:image.file.type
     //     });
     // });   
-var test=new FormData();
-angular.forEach($scope.prodImage,function(image){
-    test.append('files',image.file);
-});
+    commonServices.postMultipartService("/api/addItemImages",$scope.productVm.item).then(function(itemResponse){
+        if(itemResponse.data.code == 200){
+             var imagesUrls=[];
+                angular.forEach($scope.prodImage,function(image,key){
+                    var fd=new FormData();
+                    fd.append('files',image.file);
+                    commonServices.postMultipartService("/api/addItemImages",fd).then(function(response){
+                        if(response.data.code == 200){
+                            console.log(response.data);
+                        // imagesUrls.push(response.data.url);
+                            if(key === $scope.prodImage.length-1){
+                                saveItemImageUrls(imagesUrls,itemResponse.id)
+                            }
+                        }
+                    });
+                });
+        }
+    });    
+   
+// files.push($scope.prodImage[0].file)
+// test.append('files',$scope.prodImage[0].file)
 var object = {
     files:test
     // item_id:'1'
 }
     console.log($scope.productVm.item);
-    commonServices.postMultipartService("/api/addItemImages",object).then(function(response){
-        // console.log(response);
-        if(response.data.code == 200){
-            console.log(response.data);
-           
-        }
-        
-    });
+    
     
     
 }
+    // $scope.uploadFiles = function (files) {
+    //     console.log("uploadfirl")
+    //     $scope.files = files;
+    //     if (files && files.length) {
+    //         Upload.upload({
+    //             url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
+    //             data: {
+    //                 files: files
+    //             }
+    //         }).then(function (response) {
+    //             $timeout(function () {
+    //                 $scope.result = response.data;
+    //             });
+    //         }, function (response) {
+    //             if (response.status > 0) {
+    //                 $scope.errorMsg = response.status + ': ' + response.data;
+    //             }
+    //         }, function (evt) {
+    //             $scope.progress = 
+    //                 Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+    //         });
+    //     }
+    // };
+
+
+
+
+
+
+
+
+
+
+
+
 $scope.getCategoryTypes=function()
     {
         var object={

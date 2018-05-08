@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module('kabi', ['ui.router','LocalStorageModule','datatables']);
+angular.module('kabi', ['ui.router','LocalStorageModule','datatables','ngFileUpload']);
 
     angular.module("kabi").config(function ($stateProvider, $urlRouterProvider, $locationProvider, $sceProvider,$httpProvider) {
         // $sceProvider.enabled(false);

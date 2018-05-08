@@ -2,11 +2,11 @@
 
     angular.module('kabi').factory("commonServices", commonServices);
 
-    commonServices.$inject = ["$http", "$state",  "$q"];
+    commonServices.$inject = ["$http", "$state",  "$q","Upload"];
 
-    function commonServices($http, $state, $q) {
+    function commonServices($http, $state, $q,Upload) {
             var commonService = {};
-            var baseUrl="http://192.168.43.215:5001";
+            var baseUrl="";
             var getService = function (getUrl,ignoreLoader=false) {             
                 var deferred = $q.defer();
                 var requestOption = {
@@ -93,13 +93,21 @@
                 }
                 // if (ignoreLoader === true)
                 //     requestOptions.ignoreLoadingBar = true;
-                $http.post(baseUrl+postUrl, postInfo, requestOptions)
-                // $http({
-                //     url:baseUrl+postUrl,
-                //     method:"POST",
-                //     params:postInfo,
-                //     headers: { 'Content-Type': 'multipart/form-data;boundary=----WebKitFormBoundaryp7MA4YWxkTrZu0gW' }
-                // })
+                // $http.post(baseUrl+postUrl, postInfo, requestOptions)
+                $http({
+                    url:baseUrl+postUrl,
+                    method:"POST",
+                    data:postInfo ,
+                    // params:postInfo,
+                    headers: { 'Content-Type': undefined  }
+                })
+            //     Upload.upload({
+            //     url: baseUrl+postUrl,
+            //     data: {
+            //         files: postInfo
+            //     },
+            //     headers: { 'Content-Type': 'multipart/form-data;boundary=----WebKitFormBoundaryp7MA4YWxkTrZu0gW' }
+            // })
                 .then(function (response) {
                     deferred.resolve(response);
                 }, function (err) {

@@ -14,9 +14,10 @@ module.exports = {
 };
 
 function addImageToItem(req, res){
-    console.log('req ---->',req);
-    console.log('Files ---->',req.files);
-    console.log('paramsFiles ---->',req.form);
+    console.log('req ---->',req.body);
+    console,log('request id----->',req.swagger.params._id)
+    // console.log('Files ---->',req.files);
+    // console.log('paramsFiles ---->',req.form);
     
     res.json({
         code: req.config.RESPONSE_CODES.BAD_REQUEST,
