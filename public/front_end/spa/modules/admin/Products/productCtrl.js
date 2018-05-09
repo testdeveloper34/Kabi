@@ -1,7 +1,7 @@
 "use strict";   
-angular.module('kabi').controller('productCtrl', ['$scope','commonServices','$linq',function ($scope,commonServices,$linq) {
+angular.module('kabi').controller('productCtrl', ['$scope','commonServices','$linq','notificationService',function ($scope,commonServices,$linq,notificationService) {
 
-    $scope.prodImage=[];
+$scope.prodImage=[];
 $scope.productList=[];
 $scope.productVm={
     item:{
@@ -14,13 +14,55 @@ $scope.productVm={
 };
 // $scope.selectedSizes=[];
 $scope.$on('$viewContentLoaded', function (a) {
+    $scope.getProduct();
     $scope.getCategoryTypes();
     $scope.getCategory();
     getSizes();
     $("#sizeGroup").select2();
     
  });
+    $scope.getProduct=function(id=null)
+    {
+        var object={
+            "page":0,
+            "limit":0,
+            "_id":id
+        }
+         commonServices.postService("/api/getAllItems",object).then(function(response){
+            // console.log(response);
+            if(response.data.code == 200){
+                if(id!=null && id!="" && id!=undefined){
+                    $scope.productVm.item=response.data.data[0];
+                    $scope.productVm.category_type_id=response.data.data[0].category_type[0]._id;
+                    //$scope.productVm.category_id=response.data.data[0].category_id;
+                    $scope.productVm.item.category_type_id=response.data.data[0].category_id;
+                    $scope.productVm.item.sub_category_id=response.data.data[0].sub_category_id;
+                    // $scope.productVm.sub_category_id=response.data.data[0].sub_category_id;
+                    $scope.productVm.item_images=response.data.data[0].item_images;
+                    $scope.prodImage=response.data.data[0].item_images;;
+                    $scope.getFilterCategory();
+                    $scope.getFilterSubCategory();
+                     angular.element('#modalAddProduct').modal('show');
+                }
+                else{
+                $scope.productList=response.data.data;
+                }
+                // call toaster 
+                // call get list here
+            }
+            
+        });
+    }    
+
 $scope.addProduct = function(){
+    $scope.productVm={
+    item:{
+        category_type_id:"",
+        category_id:"",
+        selectedSizes:[],
+        item_images:[]
+    }  
+};
     angular.element('#modalAddProduct').modal('show');
 };
 //////////////////////////////////
@@ -68,13 +110,6 @@ var saveItemImageUrls =function(imageUrls,itemId){
 
 
 $scope.saveProduct = function() {
-    // angular.forEach($scope.prodImage,function(image) {
-    //         var imageBase64 = commonServices.getBase64(image.file)
-    //         $scope.productVm.item.item_images.push({
-    //             isThumbnail:image.isThumbnail,
-    //             imageString : imageBase64
-    //         });
-    //     });
     $scope.productVm.item.quantity=[];
     $scope.productVm.item.item_images=[];
     angular.forEach($scope.productVm.item.selectedSizes,function(sizeObj){
@@ -82,40 +117,35 @@ $scope.saveProduct = function() {
             quantity:sizeObj.quantity,
             size_id:sizeObj._id
         });
-    });
-    // angular.forEach($scope.prodImage,function(image){
-    //     $scope.productVm.item.item_images.push({
-    //         base64:image.imageBase64,
-    //         is_thumbnail:image.isThumbnail,
-    //         mimeType:image.file.type
-    //     });
-    // });   
-    commonServices.postMultipartService("/api/addItemImages",$scope.productVm.item).then(function(itemResponse){
-        if(itemResponse.data.code == 200){
+    });  
+    commonServices.postService("/api/additem",$scope.productVm.item).then(function(itemResponse){
+        if(itemResponse.data.code == 200)
+        {
              var imagesUrls=[];
                 angular.forEach($scope.prodImage,function(image,key){
                     var fd=new FormData();
                     fd.append('files',image.file);
-                    commonServices.postMultipartService("/api/addItemImages",fd).then(function(response){
-                        if(response.data.code == 200){
-                            console.log(response.data);
+                    commonServices.postMultipartService("/api/addItemImages/"+itemResponse.data.data._id+"/"+image.isThumbnail,fd).then(function(imageResponse){
+                        if(imageResponse.data.code == 200){
+                            console.log(imageResponse.data);
                         // imagesUrls.push(response.data.url);
                             if(key === $scope.prodImage.length-1){
-                                saveItemImageUrls(imagesUrls,itemResponse.id)
+                               notificationService.displaySuccess("Item added successfully");
+                               angular.element('#modalAddProduct').modal('hide');
+                               $scope.getProduct();
                             }
                         }
                     });
                 });
         }
+            else{
+                notificationService.displaySuccess(response.data.message);
+            }
     });    
    
 // files.push($scope.prodImage[0].file)
 // test.append('files',$scope.prodImage[0].file)
-var object = {
-    files:test
-    // item_id:'1'
-}
-    console.log($scope.productVm.item);
+    // console.log($scope.productVm.item);
     
     
     

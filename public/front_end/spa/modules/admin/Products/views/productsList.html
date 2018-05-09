@@ -7,9 +7,9 @@
                     <thead>
                       <tr>
                         <th>Product Name</th>
-                        <th>Category Name</th>
-                        <th>Sub-Category</th>
                         <th>Category Type</th>
+                        <th>Category</th>
+                        <th>Sub-Category</th>
                         <th>Image</th>
                         <th>Actions</th>
                       </tr>
@@ -17,11 +17,13 @@
                     <tbody>
                       <tr ng-repeat="product in productList track by $index">
                         <td ng-bind="product.item_name"></td>
-                        <td ng-bind="product.Category_name"></td>
-                        <td ng-bind="product.sub_category[0].sub_category_name"></td>
+                        <td ng-bind="product.category_type[0].category_type_name"></td>
+                        <td ng-bind="product.category[0].category_name"></td>
+                        <td ng-bind="product.sub_category[0].subCategory_name"></td>
                         <td>john@example.com</td>
-                        <td>john@example.com</td>
-                        <td> <span class="fa fa-edit" ng-click="getCategory(category._id)"></span> </td>
+                        <td> <span class="fa fa-edit" ng-click="getProduct(product._id)"></span>|
+                            <span class="fa fa-trash" ng-click="deleteCategory(product._id)"></span>
+                              </td>
 
                       </tr>
 
@@ -30,7 +32,11 @@
         </div>
 
     </div>
-    <div class="modal fade" id="modalAddProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
+</section>
+
+<!-- add product modal popup -->
+<div class="modal fade" id="modalAddProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header text-center">
@@ -153,29 +159,7 @@
             <!-- image preview section -->
                 </fieldset>
                 </div>
-
- <button ngf-select="uploadFiles($files)" multiple 
-            accept="image/*">Select Files</button>
-    <br>
-    <br>Files:
-    <ul>
-        <li ng-repeat="f in files" style="font:smaller">
-            {{f.name}}
-        </li>
-    </ul>
-    <span class="progress" ng-show="progress >= 0">
-        <div style="width:{{progress}}%" ng-bind="progress + '%'"></div>
-    </span>
-
-
-
-
-
-
             </div>
-
-
-
             <!-- </form>					 -->
             <div class="modal-footer d-flex justify-content-center">
                 <!-- <button class="btn btn-default">Login</button> 0-->
@@ -184,11 +168,6 @@
             </div>
         </div>
     </div>
-</div>
-</section>
-
-<!-- add product modal popup -->
-
 
 
 <script>

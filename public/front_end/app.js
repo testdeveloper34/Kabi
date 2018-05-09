@@ -78,5 +78,8 @@ angular.module('kabi', ['ui.router','LocalStorageModule','datatables','ngFileUpl
                 templateUrl:  '/spa/modules/admin/Products/views/productsList.html',
                 controller:'productCtrl'
             })
-         //$locationProvider.html5Mode(true).hashPrefix('');
+         $locationProvider.html5Mode({
+             enabled:true,
+             requireBase:false
+         })
     });

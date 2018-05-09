@@ -6,7 +6,8 @@
 
     function commonServices($http, $state, $q,Upload) {
             var commonService = {};
-            var baseUrl="";
+            //var baseUrl="";
+            var baseUrl="http://192.168.43.65:5001";
             var getService = function (getUrl,ignoreLoader=false) {             
                 var deferred = $q.defer();
                 var requestOption = {
