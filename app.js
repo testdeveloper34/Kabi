@@ -25,6 +25,7 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: true,parameterLimit:5000
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public/front_end')));
+app.use('/public/uploads',express.static(path.join(__dirname, 'public/uploads/')));
 
 SwaggerExpress.create(config, function(err, swaggerExpress) {
   if (err) { throw err; }
@@ -82,7 +83,7 @@ SwaggerExpress.create(config, function(err, swaggerExpress) {
 
     // enable SwaggerUI
     app.use(swaggerExpress.runner.swaggerTools.swaggerUi());
-
+    app.use('/*',express.static(path.join(__dirname, 'public/front_end/index.html')));
     // install middleware
     swaggerExpress.register(app);
 
