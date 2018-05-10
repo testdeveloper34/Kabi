@@ -68,3 +68,17 @@ width: 142px;
 #visible2:hover #hidden2 {
   display: block;
 }
+.product-thumbnail{
+    height: 300px;
+    width: 90%;
+}
+@media (max-width: 767px){
+.myCarousel .thumbnails li {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 0;
+    width: 43%;
+    float: left;
+    padding: -3px;
+    margin: 8px;
+}
+}

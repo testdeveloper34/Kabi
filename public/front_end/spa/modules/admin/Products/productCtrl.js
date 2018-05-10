@@ -14,6 +14,7 @@ $scope.productVm={
 };
 // $scope.selectedSizes=[];
 $scope.$on('$viewContentLoaded', function (a) {
+    angular.element('#modalAddProduct').modal('hide');
     $scope.getProduct();
     $scope.getCategoryTypes();
     $scope.getCategory();
@@ -277,6 +278,43 @@ $scope.getCategoryTypes=function()
             }            
         });
        
+    }
+
+
+
+
+     $scope.deleteProduct=function(id){
+         console.log("id is here",id)
+        swal({
+            title: "Are you sure?",
+             text: "Are you sure you want to delete this Product ?",
+             type: "warning",
+             showCancelButton: true,
+             confirmButtonColor: "#DD6B55",
+             confirmButtonText: "Yes",
+             cancelButtonText: "No",
+             closeOnConfirm: true
+
+         }, function () {
+            commonServices.deleteServiceparam("/api/deleteitem/"+id).then(function(response){
+                // console.log(response);
+                if(response.data.code == 200){
+                    notificationService.displaySuccess("Product deleted successfully");
+                    $scope.product={};
+                    // $scope.category.sub_categories=[ {
+                    //     'subCategory_name':''
+                    // }];
+                    $scope.IsAdd=true;                    
+                    $scope.getProduct();
+                    // call toaster 
+                    // call get list here
+                }
+                else{
+                    notificationService.displayError(response.data.message)
+                }
+                
+             });
+         });      
     }
     
     }]);
