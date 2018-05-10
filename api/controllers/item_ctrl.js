@@ -6,28 +6,116 @@ const itemImagesModel = require('../models/item_images');
 const itemQuantityModel = require('../models/itemQuantity');
 const fs = require('file-system');
 const async = require('async');
+const mongoose = require('mongoose');
 
 module.exports = {
     addItem: addItem,
     getAllItems: getAllItems,
-    addImageToItem: addImageToItem
+    addImageToItem: addImageToItem,
+    deleteItem: deleteItem
 };
 
-function addImageToItem(req, res){
-    console.log('req ---->',req.body);
-    console,log('request id----->',req.swagger.params._id)
-    // console.log('Files ---->',req.files);
-    // console.log('paramsFiles ---->',req.form);
+function deleteItem(req, res){
+    if(!req.swagger.params.item_id){
+        res.json({
+            code: req.config.RESPONSE_CODES.BAD_REQUEST,
+            message: req.config.RESPONSE_MESSAGES.BAD_REQUEST,
+            error: true
+        })
+    }else{
+        try{
+            let item_id  = mongoose.Types.ObjectId(req.swagger.params.item_id.value);
+            let condition = {
+                _id: item_id,
+                deleted: false
+            };
+            itemsModel.findOneAndUpdate(condition,{deleted: true},(err,item)=>{
+                if(err){
+                    res.json({
+                        code: req.config.RESPONSE_CODES.ERROR,
+                        message: req.config.RESPONSE_MESSAGES.ERROR,
+                        error: err
+                    })
+                }else{
+                    if(item){
+                        itemImagesModel.update({item_id: item_id},{deleted:true},(err,data)=>{
+                            if(err){
+                                res.json({
+                                    code: req.config.RESPONSE_CODES.SUCCESS,
+                                    message: 'Item has been deleted successfully, but some images of item may not be deleted!',
+                                    error: err
+                                })
+                            }else{
+                                res.json({
+                                    code: req.config.RESPONSE_CODES.SUCCESS,
+                                    message: req.config.RESPONSE_MESSAGES.SUCCESS,
+                                    error: err
+                                })
+                            }
+                        })
+                    }else{
+                        res.json({
+                            code: req.config.RESPONSE_CODES.NO_CONTENT,
+                            code: req.config.RESPONSE_MESSAGES.NO_CONTENT,
+                            error: true
+                        })
+                    }
+                }
+                
+            })
+        }catch(e){
+            console.log('err in delete item---->', e);
+            res.json({
+                code: req.config.RESPONSE_CODES.ERROR,
+                message: req.config.RESPONSE_MESSAGES.ERROR,
+                error: e
+            })
+        }
+    }
     
-    res.json({
-        code: req.config.RESPONSE_CODES.BAD_REQUEST,
-        message: req.config.RESPONSE_MESSAGES.BAD_REQUEST,
-        file: req.files
-    })
+}
+
+function addImageToItem(req, res){
+    try{
+        let upFile = req.files.files[0]
+        var path  = '/public/uploads/'+Date.now()+'_'+upFile.originalname;
+        var filePath = '.'+path;
+        fs.writeFile(filePath,upFile.buffer, (err) => {
+            if (err) throw err;
+            else{
+                let images = new itemImagesModel();
+                images.image_path = 'http://' +req.headers.host + path;
+                images.item_id= mongoose.Types.ObjectId(req.swagger.params.itemId.value);
+                images.is_thumbnail=req.swagger.params.isThumb.value;
+                images.save((err,data)=>{
+                    if(err){
+                        console.log(err);
+                        res.json({
+                            code: req.config.RESPONSE_CODES.ERROR,
+                            message: req.config.RESPONSE_MESSAGES.ERROR,
+                            error: err
+                        })
+                    }else{
+                        res.json({
+                            code: req.config.RESPONSE_CODES.SUCCESS,
+                            message: req.config.RESPONSE_MESSAGES.SUCCESS,
+                            data: {path:'http://' + req.headers.host + path}
+                        })
+                    }
+                })
+            }
+        });
+    }catch(e){
+        console.log('err in fileupload --->', e);
+        res.json({
+            code: req.config.RESPONSE_CODES.ERROR,
+            message: req.config.RESPONSE_MESSAGES.ERROR,
+            error: e
+        })
+    }
 }
 
 function addItem(req, res) {
-    console.log('req body -- >', req.body );
     if (!req.body.item_name || !req.body.item_price || !req.body.item_description || !req.body.category_id || !req.body.category_type_id) {
         res.json({
             code: req.config.RESPONSE_CODES.BAD_REQUEST,
@@ -209,6 +297,16 @@ function getAllItems(req, res) {
                 }
             },
             {
+                $graphLookup: {
+                    from: "itemimages",
+                    startWith: "$_id",
+                    connectFromField: "_id",
+                    connectToField: "item_id",
+                    as: "item_images",
+                    restrictSearchWithMatch: { "deleted" : false }
+                }
+            },
+            {
                 $match: condition
             }
         ]
@@ -251,8 +349,8 @@ function addQuantityForItem(req , item , cb){
         async.each(quantityArr, function(q, callback) {
             if(q._id){
                 itemQuantityModel.findOneAndUpdate({_id: q._id}, q, (err,data)=>{
-                    console.log('err---->',err);
-                    console.log('data---->',data);
+                    // console.log('err---->',err);
+                    // console.log('data---->',data);
                     callback();
                 })
             }else{
@@ -261,8 +359,8 @@ function addQuantityForItem(req , item , cb){
                 quantity.size_id= q.size_id;
                 quantity.quantity= q.quantity;
                 quantity.save((err,data)=>{
-                    console.log('err---->',err);
-                    console.log('data---->',data);
+                    // console.log('err---->',err);
+                    // console.log('data---->',data);
                     quantities.push(data);
                     callback();
                 })
