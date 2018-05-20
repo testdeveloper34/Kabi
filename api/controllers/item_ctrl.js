@@ -12,8 +12,53 @@ module.exports = {
     addItem: addItem,
     getAllItems: getAllItems,
     addImageToItem: addImageToItem,
-    deleteItem: deleteItem
+    deleteItem: deleteItem,
+    deleteItemImage: deleteItemImage
 };
+
+function deleteItemImage(req, res){
+    try{
+        console.log('itemId: ' , req.swagger.params.itemId.value);
+        console.log('imageId: ' , req.swagger.params.imageId.value);
+        condition={
+            _id: mongoose.Types.ObjectId(req.swagger.params.imageId.value),
+            item_id: mongoose.Types.ObjectId(req.swagger.params.imageId.value),
+            deleted: false
+        }
+        itemImagesModel.findOneAndUpdate(condition,{deleted: true}, {new:true},(err,data)=>{
+            if(err){
+                res.json({
+                    code: req.config.RESPONSE_CODES.ERROR,
+                    message: req.config.RESPONSE_MESSAGES.ERROR,
+                    error: e
+                })
+            }else{
+                if(data){
+                    res.json({
+                        code: req.config.RESPONSE_CODES.SUCCESS,
+                        message: req.config.RESPONSE_MESSAGES.SUCCESS,
+                        data: data
+                    })
+                }else{
+                    res.json({
+                        code: req.config.RESPONSE_CODES.NO_CONTENT,
+                        message: req.config.RESPONSE_MESSAGES.NO_CONTENT,
+                        data: 0
+                    })
+                }
+            }
+        })
+        
+    }catch(e){
+        console.log('err in fileupload --->', e);
+        res.json({
+            code: req.config.RESPONSE_CODES.ERROR,
+            message: req.config.RESPONSE_MESSAGES.ERROR,
+            error: e
+        })
+    }
+}
+
 
 function deleteItem(req, res){
     if(!req.swagger.params.item_id){
@@ -77,7 +122,9 @@ function deleteItem(req, res){
 
 function addImageToItem(req, res){
     try{
+        // console.log('files---->', req);
         let upFile = req.files.files[0]
+        console.log('files--->', req.files);
         var path  = '/public/uploads/'+Date.now()+'_'+upFile.originalname;
         var filePath = '.'+path;
         fs.writeFile(filePath,upFile.buffer, (err) => {
@@ -140,7 +187,9 @@ function addItem(req, res) {
                     newItem.sub_category_id = req.body.sub_category_id ? req.body.sub_category_id : newItem;
                     newItem.sub_sub_category_id = req.body.sub_sub_category_id ? req.body.sub_sub_category_id : newItem.sub_sub_category_id;
                     newItem.category_type = req.body.category_type_id ? req.body.category_type_id : newItem.category_type_id;
-                    itemsModel.update({_id: req.body._id, deleted: false}, newItem, (err,item)=>{
+                    itemsModel.update({_id: req.body._id, deleted: false}, newItem,{new: true}, (err,item)=>{
+                        console.log('item------>', item);
+                        item._id = req.body._id
                         if(err){
                             res.json({
                                 code: req.config.RESPONSE_CODES.ERROR,
@@ -303,6 +352,16 @@ function getAllItems(req, res) {
                     connectFromField: "_id",
                     connectToField: "item_id",
                     as: "item_images",
+                    restrictSearchWithMatch: { "deleted" : false }
+                }
+            },
+            {
+                $graphLookup: {
+                    from: "quantities",
+                    startWith: "$_id",
+                    connectFromField: "_id",
+                    connectToField: "item_id",
+                    as: "quantity",
                     restrictSearchWithMatch: { "deleted" : false }
                 }
             },

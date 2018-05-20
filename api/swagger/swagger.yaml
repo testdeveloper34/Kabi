@@ -3,7 +3,7 @@ info:
   version: "0.0.1"
   title: Kabi
 # during dev, should point to your local machine
-host: 192.168.43.65:5001
+host: 192.168.43.215:5001
 # basePath prefixes all resource paths 
 basePath: /
 # 
@@ -52,6 +52,35 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse" 
+            
+  /api/deleteItemImages/{itemId}/{imageId}:
+    # our controller name
+    x-swagger-router-controller: item_ctrl
+    delete:
+      description: delete image of item
+      # function to be called
+      operationId: deleteItemImage     
+      tags: ['Items Module']
+      parameters:
+        - name: itemId
+          in: path
+          description: Item Id
+          required: true
+          type: string
+        - name: imageId
+          in: path
+          description: Image Id
+          required: true
+          type: string          
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"             
 
   /api/addsizes:
     # our controller name
@@ -81,11 +110,20 @@ paths:
   /api/getsizes:
     # our controller name
     x-swagger-router-controller: size_ctrl
-    get:
+    post:
+      consumes:
+        - application/octet-stream    
       description: Add new item by admin
       # function to be called
       operationId: getSizes
       tags: ['Size Module']
+      parameters:
+        - name: body
+          description: category properties
+          in: body
+          required: false
+          schema:
+            $ref: "#/definitions/getAllItems"      
       responses:
         "200":
           description: Success
@@ -95,6 +133,24 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse" 
+            
+  /api/getTest:
+    # our controller name
+    x-swagger-router-controller: common_ctrl
+    get:
+      description: Add new item by admin
+      # function to be called
+      operationId: testGet
+      tags: ['Test Module']
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"             
 
   /api/addcategorytype:
     # our controller name
