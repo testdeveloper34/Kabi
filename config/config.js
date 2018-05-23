@@ -21,10 +21,10 @@ module.exports =  {
             NO_CONTENT: 204
         },
         RESPONSE_MESSAGES:{
-            SUCCESS:'successfull!',
+            SUCCESS:'Successfull!',
             BAD_REQUEST: 'BAD REQUEST!',
-            ERROR: 'ERROR OCCURED',
-            WRONG_CREDENTIALS: 'Incorrect Email or pasword',
+            ERROR: 'Server error!',
+            WRONG_CREDENTIALS: 'Incorrect Email or pasword!',
             NOT_FOUND: 'Oops! Not found!',
             ITEM_EXIST: 'Oops! Cannot delete category for which item exists, please delete item first!',
             CHILD_EXIST: 'Oops! Cannot delete category for which sub category exists, please delete child categories for this category first!',
