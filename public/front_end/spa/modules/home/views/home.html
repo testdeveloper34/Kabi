@@ -35,8 +35,8 @@
 									<div class="carousel-inner">
 										<div class="item " ng-class="{'active':productGroup.isActive===true}" ng-repeat="productGroup in featuredProduct">
 											<ul class="thumbnails">
-												<li class="span3" ng-repeat="product in productGroup.child">
-													<div class="product-box">
+												<li class="span3" ng-repeat="product in productGroup.child track by $index">
+													<div class="product-box" ui-sref="Dashboard.productDetail({id:product._id})">
 														<span class="sale_tag"></span>
 														<p><a ><img class="img-thumbnail product-thumbnail"  src={{product.item_images[0].image_path}} alt="" /></a></p>
 														<a href="product_detail.html" class="title">{{product.item_name}}</a><br/>
@@ -68,7 +68,7 @@
 												<li class="span3" ng-repeat="product in productGroup.child">
 													<div class="product-box">
 														<span class="sale_tag"></span>
-														<p><a ><img class="img-thumbnail product-thumbnail"  src={{product.item_images[0].image_path}} alt="" /></a></p>
+														<p><a ><img class="img-thumbnail product-thumbnail"  ng-src={{product.item_images[0].image_path}} alt="" /></a></p>
 														<a href="product_detail.html" class="title">{{product.item_name}}</a><br/>
 														<a href="products.html" class="category">{{product.category[0].category_name}}</a>
 														<p class="price">${{product.item_price}}</p>

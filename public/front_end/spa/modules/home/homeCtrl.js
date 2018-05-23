@@ -4,7 +4,7 @@ angular.module('kabi').controller('homeCtrl', ['$scope','$http','commonServices'
     $scope.$on('$viewContentLoaded', function (a) {
     $scope.getProducts();
  });
-
+$scope.productList=[];
  $scope.getProducts=function(id=null)
     {
         var object={
@@ -21,7 +21,14 @@ angular.module('kabi').controller('homeCtrl', ['$scope','$http','commonServices'
                     $scope.IsAdd=false;                                    
                 }
                 else{
-                    $scope.productList=response.data.data;
+                    angular.forEach(response.data.data,function(prod){
+                        if(prod.item_images.length!=0){
+                            prod.item_images[0].image_path = prod.item_images[0].image_path.replace('43.65','43.215');
+                            $scope.productList.push(prod);
+
+                        }
+                    });
+                    // $scope.productList=response.data.data;
                     $scope.featuredProduct = groupProduct($scope.productList);
                     $scope.latestProduct = groupProduct($linq.Enumerable().From($scope.productList)
 					.OrderBy(function (x) {

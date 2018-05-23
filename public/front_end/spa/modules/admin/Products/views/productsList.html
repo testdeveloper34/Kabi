@@ -1,8 +1,9 @@
 <section class="main-content">
-    <button ng-click="addProduct()"><i class="fa fa-plus" ></i> Add Product</button>
     <div class="row">
         <div class="span12">
-            <h4 class="title"><span class="text"><strong>Product List</strong></span></h4>
+            <h4 class="title"><span class="text"><strong>Product List</strong></span>
+    <button ng-click="addProduct()" class=" btn btn-inverse large"><i class="fa fa-plus" ></i> Add Product</button>
+            </h4>
             <table datatable="ng" class="table table-bordered responsive ">
                     <thead>
                       <tr>
@@ -150,8 +151,9 @@
                          <div class="row" id="image_preview">
                              <div class='span1' ng-repeat="image in prodImage">
                                  <div class="form-group">
-                                    <img ng-click="selectThumbnail(image.blobUrl)" class='img-responsive' src="{{image.blobUrl}}"/>
-                                    <label ng-if="image.isThumbnail">Thumbnail</label>
+                                    <img  class='img-responsive' src="{{image.blobUrl}}"/>
+                                    <!-- ng-click="selectThumbnail(image.blobUrl)" -->
+                                    <!-- <label ng-if="image.isThumbnail">Thumbnail</label> -->
                                  </div>
 
                                 </div>

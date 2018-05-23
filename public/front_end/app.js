@@ -53,6 +53,12 @@ angular.module('kabi', ['ui.router','LocalStorageModule','datatables','ngFileUpl
                     //}
                 },
             })
+            .state('Dashboard.productDetail',{
+                url: "/detailproduct/:id",
+                // :id",
+                templateUrl:  '/spa/modules/product/views/productDetails.html',
+                controller:'productDetailCtrl'
+            })
             .state('Admin', {
                 abstract: true,
                 views: {
@@ -77,9 +83,9 @@ angular.module('kabi', ['ui.router','LocalStorageModule','datatables','ngFileUpl
                 url: '/admin/productlist',
                 templateUrl:  '/spa/modules/admin/Products/views/productsList.html',
                 controller:'productCtrl'
-            })
-        //  $locationProvider.html5Mode({
-        //      enabled:true,
-        //      requireBase:false
-        //  })
+            });
+         $locationProvider.html5Mode({
+             enabled:true,
+             requireBase:false
+         });
     });

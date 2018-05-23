@@ -26,37 +26,9 @@
         </div>
         <div class="span4" ng-init="Save = true">					
             <h4 class="title"><span class="text"><strong>Add Category</strong></span></h4>
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-            <form  role="form" role="form" novalidate name="form"   class="form-stacked">
-         
-
-
-   <!-- <div class="form-group has-feedback">
-                                        <input class="form-control" type="text" name="company_name" ng-model="user.company_name" maxlength="50" placeholder="Company Name" required>
-                                        <span class="fa fa-building form-control-feedback"></span>
-                                        <div ng-show="form.$submitted || form.company_name.$touched">
-                                            <span class="text-danger" ng-show="form.company_name.$error.required" class="text-danger">Please enter company name <span class="text-danger" ng-show="form.company_name.$error.pattern">Invalid company name</span>
-                                        </div>
-                                    </div> -->
-
-
-
-
+          <form  role="form" role="form" novalidate name="form"   class="form-stacked">
                     <div class="control-group">
-                        <label class="control-label">Category Name</label>
+                        <label class="control-label">Category Name<span class="text-danger">*</span></label>
                         <div class="controls">
                             <input type="text" placeholder="Enter new category name" name="category_name" class="input-xlarge" maxlength="50" ng-model="category.category_name" required>
                         <div ng-show="form.$submitted || form.category_name.$touched">
@@ -65,7 +37,7 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label">Category Type</label>
+                        <label class="control-label">Category Type<span class="text-danger">*</span></label>
                         <div class="controls">
                             <select id="categoryType" placeholder="Select Category Type" name="category_type" class="input-xlarge" ng-model="category.category_type" ng-required="true">
                           
@@ -85,7 +57,7 @@
                     </div>
                     <div class="control-group">
                         
-                    <label class="control-label">Sub-Category <span class="fa fa-plus add-icon" ng-click="addnew()"></span> </label>
+                    <label class="control-label">Sub-Category<span class="text-danger">*</span> <span class="fa fa-plus add-icon" ng-click="addnew()"></span> </label>
                                                                                        
                         <div class="control-group">
                         <div class="controls" ng-repeat="subcategory in category.sub_categories track by $index">
