@@ -3,7 +3,7 @@ info:
   version: "0.0.1"
   title: Kabi
 # during dev, should point to your local machine
-host: 192.168.43.215:5001
+host: 1fb3ab39.ngrok.io
 # basePath prefixes all resource paths 
 basePath: /
 # 
@@ -18,6 +18,59 @@ consumes:
 produces:
   - application/json
 paths:
+  /api/addroles:
+    # our controller name
+    x-swagger-router-controller: user_ctrl
+    post:
+      description: Add new item by admin
+      # function to be called
+      operationId: addRole
+      tags: ['User Module']
+      parameters:
+        - name: body
+          description: category properties
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/addRoles"
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"      
+            
+  /api/getroles:
+    # our controller name
+    x-swagger-router-controller: user_ctrl
+    post:
+      consumes:
+        - application/octet-stream  
+        - application/json
+      description: Add new item by admin
+      # function to be called
+      operationId: getRoles
+      tags: ['User Module']
+      parameters:
+        - name: body
+          description: category properties
+          in: body
+          required: false
+          schema:
+            $ref: "#/definitions/getAllItems"      
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/GeneralResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"            
+            
   /api/addItemImages/{itemId}/{isThumb}:
     # our controller name
     x-swagger-router-controller: item_ctrl
@@ -578,6 +631,19 @@ paths:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
 definitions:
+  addRoles:
+    type: object
+    properties:
+      role_name:
+        type: string
+        description: Role name
+      role_category:
+        type: string
+        description: Category name        
+    required:
+      - role_name
+      - role_category
+
   addSizes:
     type: object
     properties:
