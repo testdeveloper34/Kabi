@@ -109,10 +109,7 @@ $scope.allTypes=[];
             console.log(response);
             if(response.data.code == 200){
                 // call toaster 
-                $scope.category={};
-                 $scope.category.sub_categories=[ {
-        'subCategory_name':''
-    }];
+                $scope.reset();
 //$scope.category.category_type="5adc4f7b76ce5f35d8df9687";
 $scope.getCategory();
                 // call get list here
@@ -123,7 +120,8 @@ $scope.getCategory();
         // call save method of the service to save category.
         
     }
-    $scope.deleteCategory=function(id){
+    $scope.deleteCategory=function(id)
+    {
         swal({
             title: "Are you sure?",
              text: "Are you sure you want to delete this Category ?",
@@ -139,10 +137,7 @@ $scope.getCategory();
                 // console.log(response);
                 if(response.data.code == 200){
                     notificationService.displaySuccess("category deleted successfully");
-                    $scope.category={};
-                    $scope.category.sub_categories=[ {
-                        'subCategory_name':''
-                    }];
+                    $scope.reset();
                     $scope.IsAdd=true;                    
                     $scope.getCategory();
                     // call toaster 
@@ -155,5 +150,15 @@ $scope.getCategory();
              });
          });      
     }
+        $scope.reset=function()
+        {
+             $scope.category={};
+    $scope.category.sub_categories=[ {
+        'subCategory_name':''
+    }];
+    $scope.form.$setPristine();
+    $scope.form.$setUntouched();
+    $scope.IsAdd=true;
+        }
     // alert('home');
     }]);

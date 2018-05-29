@@ -29,12 +29,28 @@ $scope.productList=[];
                         }
                     });
                     // $scope.productList=response.data.data;
-                    $scope.featuredProduct = groupProduct($scope.productList);
-                    $scope.latestProduct = groupProduct($linq.Enumerable().From($scope.productList)
+                    //$scope.featuredProduct = groupProduct($scope.productList);
+                    $scope.latestProductMens = groupProduct($linq.Enumerable().From($scope.productList)
+                    .Where(function(x){
+                        return x.category_type[0].category_type_name==="Mens"
+                    })
 					.OrderBy(function (x) {
 						return new Date(x.createdAt)
-					}).ToArray());
-                     
+					}).Take(7).ToArray());
+                     $scope.latestProductWomens = groupProduct($linq.Enumerable().From($scope.productList)
+                     .Where(function(x){
+                       return x.category_type[0].category_type_name==="Womens"
+                    })
+					.OrderBy(function (x) {
+						return new Date(x.createdAt)
+                    }).Take(7).ToArray());
+                    $scope.latestProductKids = groupProduct($linq.Enumerable().From($scope.productList)
+                    .Where(function(x){
+                        return x.category_type[0].category_type_name==="Kids"
+                    })
+					.OrderBy(function (x) {
+						return new Date(x.createdAt)
+					}).Take(7).ToArray());
                     console.log($scope.featuredProduct);
                 }
                 // call toaster 

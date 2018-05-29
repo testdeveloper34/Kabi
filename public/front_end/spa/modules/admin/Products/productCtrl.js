@@ -310,5 +310,19 @@ $scope.getCategoryTypes=function()
              });
          });      
     }
+         $scope.reset=function()
+        {
+             $scope.productVm={
+    item:{
+        category_type_id:"",
+        category_id:"",
+        selectedSizes:[],
+        item_images:[],
+        sizeIds:[]
+    }
+    
+};
+$scope.prodImage=[];
+        }
     
     }]);

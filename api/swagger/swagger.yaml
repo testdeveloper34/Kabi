@@ -3,7 +3,8 @@ info:
   version: "0.0.1"
   title: Kabi
 # during dev, should point to your local machine
-host: 192.168.43.215:5001
+# host: 192.168.43.215:5001
+host: localhost:5001
 # basePath prefixes all resource paths 
 basePath: /
 # 
